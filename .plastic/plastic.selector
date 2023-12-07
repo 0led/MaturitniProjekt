@@ -1,0 +1,4 @@
+repository "MaturitniProjekt@oldrichubinak@cloud"
+  path "/"
+    br "/main"
+    co "/main"
