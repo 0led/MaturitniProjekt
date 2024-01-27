@@ -6,11 +6,25 @@ public class Weapon : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject bulletPrefab;
+    private string fireButton;
 
-    // Update is called once per frame
+    void Start()
+    {
+        // Nastavit tlačítko střelby podle tagu hráče
+        if (gameObject.tag == "Player1")
+        {
+            fireButton = "Fire1"; // Předpokládá, že máte vstup s názvem "Fire1" pro hráče 1
+        }
+        else if (gameObject.tag == "Player2")
+        {
+            fireButton = "Fire2"; // Předpokládá, že máte vstup s názvem "Fire2" pro hráče 2
+        }
+    }
+
     void Update()
     {
-        if (Input.GetButtonDown("Fire1")){
+        if (Input.GetButtonDown(fireButton))
+        {
             Shoot();
         }
     }
