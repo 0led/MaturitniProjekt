@@ -9,14 +9,12 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D _rigidbody;
     private float lastJumpTime = 0.0f;
     private float jumpCooldown = 0.5f;
-    
+    public Transform FirePoint1;
+    public Transform FirePoint2;
     
     bool facingRightP1 = true;
     bool facingRightP2 = false;
     
-
-    
-
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -51,9 +49,16 @@ public class PlayerMovement : MonoBehaviour
 
         if(!facingRightP1)
         {
-           gameObject.transform.localScale = new Vector3(-0.3833f,0.3833f,0.3833f);
+            gameObject.transform.localScale = new Vector3(-0.3833f,0.3833f,0.3833f);
+            // Otočit firepoint doleva
+            FirePoint1.transform.eulerAngles = new Vector3(0, 180, 0);
+        }
+        else {
+            // Otočit firepoint doprava (standardní orientace)
+            FirePoint1.transform.eulerAngles = Vector3.zero;
         }
         
+
         }
 
          if (gameObject.tag == "Player2")
@@ -81,9 +86,14 @@ public class PlayerMovement : MonoBehaviour
 
         if(!facingRightP2)
         {
-           gameObject.transform.localScale = new Vector3(0.3833f,0.3833f,0.3833f);
+            gameObject.transform.localScale = new Vector3(0.3833f,0.3833f,0.3833f);
+            // Otočit firepoint doleva
+            FirePoint2.transform.eulerAngles = new Vector3(0, 180, 0);
+        }
+        else {
+            // Otočit firepoint doprava (standardní orientace)
+            FirePoint2.transform.eulerAngles = Vector3.zero;
         }
     }
     }
     }
-
