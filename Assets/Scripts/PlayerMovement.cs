@@ -4,17 +4,27 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 2;
-    public float jumpForce = 5;
+    public float speed = 12;
+    public float jumpForce = 15;
     public Rigidbody2D _rigidbody;
     private float lastJumpTime = 0.0f;
     private float jumpCooldown = 0.5f;
     public Transform FirePoint1;
     public Transform FirePoint2;
     
-    bool facingRightP1 = true;
-    bool facingRightP2 = false;
+    private bool facingRightP1 = true;
+    private bool facingRightP2 = false;
     
+    public bool GetFacingRightP1()
+    {
+        return facingRightP1;
+    }
+
+    public bool GetFacingRightP2()
+    {
+        return facingRightP2;
+    }
+
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -57,8 +67,6 @@ public class PlayerMovement : MonoBehaviour
             // Otočit firepoint doprava (standardní orientace)
             FirePoint1.transform.eulerAngles = Vector3.zero;
         }
-        
-
         }
 
          if (gameObject.tag == "Player2")
