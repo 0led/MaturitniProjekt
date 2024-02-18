@@ -33,8 +33,39 @@ public class Weapon : MonoBehaviour
         // fireButton2 = "Fire2"; // Klávesa pro střelbu hráče 2, např. KeyCode.Return.ToString()  
     }
 
+void Update()
+    {
+        // Kontrola, zda hráč 1 stiskl klávesu pro střelbu
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Shoot(firePoint1, weaponConfigP1);
+        }
+
+        // Kontrola, zda hráč 2 stiskl klávesu pro střelbu
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            Shoot(firePoint2, weaponConfigP2);
+        }
+    }
+
+/*
     void Update()
-    {   
+    {
+     // Kontrola, zda hráč 1 stiskl klávesu pro střelbu
+    if (gameObject.CompareTag("Player1") && Input.GetKeyDown(KeyCode.Space))
+    {
+        Shoot(firePoint1, weaponConfigP1);
+    }
+
+    // Kontrola, zda hráč 2 stiskl klávesu pro střelbu
+    if (gameObject.CompareTag("Player2") && Input.GetKeyDown(KeyCode.Return))
+    {
+        Shoot(firePoint2, weaponConfigP2);
+    }
+    }
+*/
+
+        
         /*
         if (Input.GetButtonDown(fireButton))
         {
@@ -42,6 +73,8 @@ public class Weapon : MonoBehaviour
         }
         */
          // Kontrola, zda hráč 1 stiskl klávesu pro střelbu
+       
+       /*
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Shoot(firePoint1);
@@ -52,11 +85,12 @@ public class Weapon : MonoBehaviour
         {
             Shoot(firePoint2);
         }
+*/
 
-    }
+    
 
-void Shoot(Transform firePoint) {
-     Debug.Log("Shooting from: " + firePoint.name + " at time: " + Time.time);
+void Shoot(Transform firePoint, WeaponConfig weaponConfig) {
+    // Debug.Log("Shooting from: " + firePoint.name + " at time: " + Time.time + " from object: " + gameObject.name);
 
     // Rozlišení, která konfigurace zbraně se má použít na základě firePoint
     WeaponConfig currentConfig = firePoint == firePoint1 ? weaponConfigP1 : weaponConfigP2;
@@ -79,6 +113,7 @@ void Shoot(Transform firePoint) {
     } else {
         Debug.Log("Weapon configuration is null or has zero fireRate or damage, cannot shoot.");
     }
+}
 }
   /*  void Shoot(Transform firePoint) {
         //shooting logic
@@ -112,4 +147,3 @@ void Shoot(Transform firePoint) {
 
         // Další logika střelby, pokud je potřeba
         */
-}

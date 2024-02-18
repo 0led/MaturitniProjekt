@@ -100,4 +100,5 @@ MonoBehaviour:
   firePoint1: {fileID: 3855098159651015273, guid: 5ff6e6e2b4b748c49aa9c681e43ca6ad, type: 3}
   firePoint2: {fileID: 6491918395984706741, guid: 8981f0abeaf0dc4498d3a952692e9c49, type: 3}
   bulletPrefab: {fileID: 8204321080010350686, guid: c1d026e44e8af944da7f9dd0f4a774b5, type: 3}
-  weaponConfig: {fileID: 11400000, guid: 17d682d1886d0d74a9437b889d275a9c, type: 2}
+  weaponConfigP1: {fileID: 11400000, guid: 17d682d1886d0d74a9437b889d275a9c, type: 2}
+  weaponConfigP2: {fileID: 11400000, guid: 17d682d1886d0d74a9437b889d275a9c, type: 2}

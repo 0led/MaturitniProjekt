@@ -147,7 +147,8 @@ MonoBehaviour:
   firePoint1: {fileID: 3855098159651015273, guid: 5ff6e6e2b4b748c49aa9c681e43ca6ad, type: 3}
   firePoint2: {fileID: 6491918395984706741, guid: 8981f0abeaf0dc4498d3a952692e9c49, type: 3}
   bulletPrefab: {fileID: 8204321080010350686, guid: c1d026e44e8af944da7f9dd0f4a774b5, type: 3}
-  weaponConfig: {fileID: 11400000, guid: 5da72bd6fa77cab4b965f5477ac3e007, type: 2}
+  weaponConfigP1: {fileID: 11400000, guid: 5da72bd6fa77cab4b965f5477ac3e007, type: 2}
+  weaponConfigP2: {fileID: 11400000, guid: 5da72bd6fa77cab4b965f5477ac3e007, type: 2}
 --- !u!114 &704268229892966503
 MonoBehaviour:
   m_ObjectHideFlags: 0
