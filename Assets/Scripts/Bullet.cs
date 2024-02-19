@@ -13,8 +13,8 @@ public class Bullet : MonoBehaviour
 
     public void Initialize(WeaponConfig config)
     {
-        speed = config.speed;
         damage = config.damage;
+        speed = config.speed;
         range = config.range;
 
         rb.velocity = transform.right * speed;
@@ -42,6 +42,10 @@ public class Bullet : MonoBehaviour
         if (health != null)
         {
             health.TakeDamage(damage);
+            Destroy(gameObject);
+        }
+        else if (hitInfo.gameObject.CompareTag("Platform"))
+        {
             Destroy(gameObject);
         }
     }
