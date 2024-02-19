@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2534791314070572276}
   - component: {fileID: 7986401849518626626}
-  - component: {fileID: 5939095680926532891}
+  - component: {fileID: 6812044412965335907}
+  - component: {fileID: -7942298533305614611}
+  - component: {fileID: 2750925599259493604}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -85,7 +87,65 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5939095680926532891
+--- !u!61 &6812044412965335907
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993525392519895546}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5, y: 5}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5}
+  m_EdgeRadius: 0
+--- !u!114 &-7942298533305614611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993525392519895546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1c89ff936e88a4429de98662345813c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponPrefab: {fileID: 993525392519895546}
+--- !u!114 &2750925599259493604
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,8 +157,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 272ade6a78fa8df4d9f9ac3b292957da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 8204321080010350686, guid: c1d026e44e8af944da7f9dd0f4a774b5, type: 3}
   firePoint1: {fileID: 3855098159651015273, guid: 5ff6e6e2b4b748c49aa9c681e43ca6ad, type: 3}
   firePoint2: {fileID: 6491918395984706741, guid: 8981f0abeaf0dc4498d3a952692e9c49, type: 3}
-  bulletPrefab: {fileID: 8204321080010350686, guid: c1d026e44e8af944da7f9dd0f4a774b5, type: 3}
   weaponConfigP1: {fileID: 11400000, guid: 17d682d1886d0d74a9437b889d275a9c, type: 2}
   weaponConfigP2: {fileID: 11400000, guid: 17d682d1886d0d74a9437b889d275a9c, type: 2}
