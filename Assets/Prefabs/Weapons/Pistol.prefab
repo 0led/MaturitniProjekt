@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2534791314070572276}
   - component: {fileID: 7986401849518626626}
   - component: {fileID: 6812044412965335907}
-  - component: {fileID: -7942298533305614611}
+  - component: {fileID: 8422859024000154249}
   - component: {fileID: 2750925599259493604}
   m_Layer: 0
   m_Name: Pistol
@@ -119,7 +119,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.029320776, y: 0.009773612}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -130,9 +130,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5, y: 5}
+  m_Size: {x: 3.4948087, y: 2.5565112}
   m_EdgeRadius: 0
---- !u!114 &-7942298533305614611
+--- !u!114 &8422859024000154249
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,5 +160,5 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8204321080010350686, guid: c1d026e44e8af944da7f9dd0f4a774b5, type: 3}
   firePoint1: {fileID: 3855098159651015273, guid: 5ff6e6e2b4b748c49aa9c681e43ca6ad, type: 3}
   firePoint2: {fileID: 6491918395984706741, guid: 8981f0abeaf0dc4498d3a952692e9c49, type: 3}
-  weaponConfigP1: {fileID: 11400000, guid: 17d682d1886d0d74a9437b889d275a9c, type: 2}
-  weaponConfigP2: {fileID: 11400000, guid: 17d682d1886d0d74a9437b889d275a9c, type: 2}
+  weaponConfig: {fileID: 11400000, guid: 17d682d1886d0d74a9437b889d275a9c, type: 2}
+  isStartingWeapon: 1

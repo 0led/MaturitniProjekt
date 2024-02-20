@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SMGConfig
   m_EditorClassIdentifier: 
   damage: 10
-  range: 15
+  range: 10
   speed: 10

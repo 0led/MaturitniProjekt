@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ad02d0e9f624564d9ff8d40c4581e35, type: 3}
   m_Name: PistolConfig
   m_EditorClassIdentifier: 
-  damage: 10
-  range: 15
+  damage: 5
+  range: 10
   speed: 10
