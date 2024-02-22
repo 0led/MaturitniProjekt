@@ -7,69 +7,36 @@ public class WeaponEquip : MonoBehaviour
     public Transform weaponHolder;
 
     public GameObject EquipWeapon(GameObject weaponPrefab, Transform firePoint, WeaponConfig newWeaponConfig)
+    
     {
-    // Odstranění stávající zbraně a deaktivace skriptu Weapon
+
     foreach (Transform child in weaponHolder)
     {
-      /*
-       Weapon oldWeaponScript = child.GetComponent<Weapon>();
-        if (oldWeaponScript != null)
-        {
-            oldWeaponScript.enabled = false; // Deaktivujeme skript
-        }
-        */
         Destroy(child.gameObject);
     }
 
-    // Vytvoření instance nové zbraně a aktivace skriptu Weapon
     GameObject weaponInstance = Instantiate(weaponPrefab, weaponHolder.position, Quaternion.identity, weaponHolder);
-    weaponInstance.transform.localEulerAngles = firePoint.localEulerAngles;
-
-    // Aktivace skriptu Weapon na nově vybavené zbrani
+    weaponInstance.transform.localPosition = Vector3.zero;
+    weaponInstance.transform.localRotation = Quaternion.identity;
     Weapon newWeaponScript = weaponInstance.GetComponent<Weapon>();
     if (newWeaponScript != null)
     {
-        newWeaponScript.enabled = true; // Aktivujeme skript
-        newWeaponScript.SetWeaponConfig(newWeaponConfig); // Aktualizujte WeaponConfig
+        newWeaponScript.enabled = true;
+        newWeaponScript.SetWeaponConfig(newWeaponConfig);
+        
+        PlayerMovement playerMovement = weaponHolder.GetComponentInParent<PlayerMovement>();
+        Transform playerFirePoint = weaponHolder.CompareTag("Player1") ? playerMovement.FirePoint1 : playerMovement.FirePoint2;
+        newWeaponScript.SetFirePoint(playerFirePoint);
+        
+        if (weaponHolder.CompareTag("Player1")) {
+            newWeaponScript.SetPlayerIdentifier(1);
+        } else if (weaponHolder.CompareTag("Player2")) {
+            newWeaponScript.SetPlayerIdentifier(2);
+        } 
+    
     }
 
- return weaponInstance;
-}
-}
-  /*
-    public void EquipWeapon(GameObject weaponPrefab, Transform firePoint)
-{
-    foreach (Transform child in weaponHolder)
-    {
-        Destroy(child.gameObject);  // Odstranění stávající zbraně
-    }
-
-    GameObject weaponInstance = Instantiate(weaponPrefab, weaponHolder.position, Quaternion.identity, weaponHolder);
-    weaponInstance.transform.localEulerAngles = firePoint.localEulerAngles;
-
-    WeaponConfig weaponConfig = weaponPrefab.GetComponent<Weapon>().weaponConfig; // Načtení WeaponConfig z prefabu
-    Weapon weaponScript = weaponInstance.GetComponent<Weapon>();
-    if (weaponScript != null)
-    {
-        weaponScript.SetWeaponConfig(weaponConfig);  // Nastavení WeaponConfig pro instanci zbraně
-    }
-    else
-    {
-        Debug.LogError("Weapon script not found on the instantiated weapon object.");
+    return weaponInstance;
+   
     }
 }
-*/
-    /*
-    public void EquipWeapon(GameObject weaponPrefab, Transform firePoint)
-    {
-        foreach (Transform child in weaponHolder) {
-            Destroy(child.gameObject);
-        }
-
-        GameObject weaponInstance = Instantiate(weaponPrefab, weaponHolder.position, Quaternion.identity, weaponHolder);
-        weaponInstance.transform.localEulerAngles = firePoint.localEulerAngles;
-
-        Debug.Log("FirePoint LocalEulerAngles: " + firePoint.localEulerAngles);
-        Debug.Log("Weapon Instance LocalEulerAngles: " + weaponInstance.transform.localEulerAngles);
-    }
-    */

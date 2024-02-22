@@ -5,63 +5,117 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     public GameObject bulletPrefab;
-    public Transform firePoint1;
-    public Transform firePoint2;
+    public Transform firePoint;
     private string fireButton1;
     private string fireButton2;
-    //public WeaponConfig weaponConfigP1;
-    //public WeaponConfig weaponConfigP2;
     public WeaponConfig weaponConfig;
     public bool isStartingWeapon = false;
+    private int playerIdentifier;
 
     void Start()
     {
-
-         if (!isStartingWeapon)
+       
+    if (isStartingWeapon)
     {
-        this.enabled = false; // Deaktivujte skript Weapon, pokud to není startovní zbraň
+        Transform weaponHolder = transform.parent;
+
+        if (weaponHolder.parent.CompareTag("Player1"))
+        {
+            SetPlayerIdentifier(1);
+            firePoint = weaponHolder.parent.Find("FirePoint1");
+        }
+        else if (weaponHolder.parent.CompareTag("Player2"))
+        {
+            SetPlayerIdentifier(2);
+            firePoint = weaponHolder.parent.Find("FirePoint2");
+        }
+
+        if (firePoint == null)
+        {
+
+        }
+        else
+        {
+
+        }
     }
-        //this.enabled = false; // Deaktivuje skript Weapon, když hra začíná
+    }
+       
+    public void SetPlayerIdentifier(int identifier)
+    {
+        playerIdentifier = identifier;
     }
 
     public void SetWeaponConfig(WeaponConfig newConfig)
-{
-    //newWeaponScript.SetWeaponConfig(newWeaponConfig); // Aktualizujte WeaponConfig
-    weaponConfig = newConfig;
-    
-    Debug.Log("New weapon config set with damage: " + weaponConfig.damage); // Mělo by ukázat správnou hodnotu poškození
-}
+    {
+        weaponConfig = newConfig;
+    }
+
+      public void SetFirePoint(Transform newFirePoint)
+    {
+        if (newFirePoint != null)
+    {
+        firePoint = newFirePoint;
+    }
+    else
+    {
+
+    }
+    }
+
+
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+   
+        if (playerIdentifier == 1 && Input.GetKeyDown(KeyCode.Space))
+    {
+        if (firePoint != null)
         {
-            Shoot(firePoint1, weaponConfig);
+            Shoot(weaponConfig);
         }
-
-        if (Input.GetKeyDown(KeyCode.Return))
+        else
         {
-            Shoot(firePoint2, weaponConfig);
+
         }
     }
-
-    void Shoot(Transform firePoint, WeaponConfig weaponConfig)
+    else if (playerIdentifier == 2 && Input.GetKeyDown(KeyCode.Return))
     {
-     //Debug.Log("Shooting with damage: " + weaponConfig.damage); // Kontrola hodnoty damage
+        if (firePoint != null)
+        {
+            Shoot(weaponConfig);
+        }
+        else
+        {
 
+        }
+    }
+    }
+      
+    void Shoot(WeaponConfig weaponConfig)
+    {
+
+    if (firePoint == null)
+    {
+        return;
+    }
+
+    if (firePoint != null){
     GameObject bulletObject = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
     Bullet bulletScript = bulletObject.GetComponent<Bullet>();
-
+    
     if (bulletScript != null)
     {
-        bulletScript.Initialize(weaponConfig); // Inicializujeme Bullet s hodnotami z WeaponConfig
-        
-        Debug.Log("Shooting with damage: " + weaponConfig.damage); // Mělo by ukázat správnou hodnotu poškození
+        bulletScript.Initialize(weaponConfig);
     }
     else
     {
         
-        Debug.LogError("Bullet script not found on the instantiated bullet object.");
+    }
+    }
+    else
+    {
+
     }
 }
 }

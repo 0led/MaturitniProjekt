@@ -40,7 +40,7 @@ public class WeaponSpawner : MonoBehaviour
                 GameObject weaponToSpawn = Random.Range(0, 2) == 0 ? ARPrefab : SMGPrefab;
                 Vector2 spawnPosition = spawnInfo.Point.transform.position;
                 GameObject spawnedWeapon = Instantiate(weaponToSpawn, spawnPosition, Quaternion.identity);
-                spawnedWeapon.GetComponent<Weapon>().enabled = false; // Deaktivujte skript Weapon na nově spawnované zbrani
+                spawnedWeapon.GetComponent<Weapon>().enabled = false;
                 isSpawnPointOccupied[spawnInfo.Index] = true;
 
                 Destroy(spawnedWeapon, destroyDelay);
