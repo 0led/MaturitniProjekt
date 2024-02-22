@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class WeaponSpawner : MonoBehaviour
+public class ItemSpawner : MonoBehaviour
 {
     public GameObject ARPrefab;
     public GameObject SMGPrefab;
@@ -13,7 +13,9 @@ public class WeaponSpawner : MonoBehaviour
     public float spawnDelay = 2f;
     public float destroyDelay = 5f;
     public GameObject[] spawnPoints;
+    public GameObject[] powerUpPrefabs;
     private bool[] isSpawnPointOccupied;
+    private bool spawnWeaponNext = true;
 
     private void Start()
     {
@@ -37,14 +39,21 @@ public class WeaponSpawner : MonoBehaviour
         if (availableSpawnPoints.Count > 0)
             {
                 var spawnInfo = availableSpawnPoints[Random.Range(0, availableSpawnPoints.Count)];
-                GameObject weaponToSpawn = Random.Range(0, 2) == 0 ? ARPrefab : SMGPrefab;
+                //GameObject weaponToSpawn = Random.Range(0, 2) == 0 ? ARPrefab : SMGPrefab;
+                GameObject itemToSpawn = spawnWeaponNext ? ChooseWeapon() : ChoosePowerUp();
                 Vector2 spawnPosition = spawnInfo.Point.transform.position;
-                GameObject spawnedWeapon = Instantiate(weaponToSpawn, spawnPosition, Quaternion.identity);
-                spawnedWeapon.GetComponent<Weapon>().enabled = false;
+                //GameObject spawnedWeapon = Instantiate(weaponToSpawn, spawnPosition, Quaternion.identity);
+                //Debug.Log("Spawning power-up at position (before Instantiate):" + spawnInfo.Point.transform.position);
+                GameObject spawnedItem = Instantiate(itemToSpawn, spawnPosition, Quaternion.identity);
+                //Debug.Log("Spawning power-up at position (after Instantiate):" + spawnedItem.transform.position);
+                //Debug.Break();
+                //spawnedItem.GetComponent<Weapon>().enabled = false;
+                
                 isSpawnPointOccupied[spawnInfo.Index] = true;
-
-                Destroy(spawnedWeapon, destroyDelay);
+                Destroy(spawnedItem, destroyDelay);
                 StartCoroutine(ReleaseSpawnPoint(spawnInfo.Index, destroyDelay));
+
+                spawnWeaponNext = !spawnWeaponNext; // Přepněte na druhý typ položky pro další spawn
             }
         }
     }
@@ -53,6 +62,19 @@ public class WeaponSpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         isSpawnPointOccupied[index] = false;
+    }
+
+    private GameObject ChooseWeapon()
+    {
+        // Logika pro výběr a vrácení prefabu zbraně
+        return Random.Range(0, 2) == 0 ? ARPrefab : SMGPrefab;
+    }
+
+    private GameObject ChoosePowerUp()
+    {
+        // Logika pro výběr a vrácení prefabu power-upu
+        int powerUpIndex = Random.Range(0, powerUpPrefabs.Length);
+        return powerUpPrefabs[powerUpIndex];
     }
 
     private Vector2 CalculateSpawnPosition()
