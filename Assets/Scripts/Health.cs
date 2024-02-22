@@ -46,6 +46,12 @@ public class Health : MonoBehaviour
         }
     }
 
+    public void AddHealth(float value)
+    {
+        health += value;
+        health = Mathf.Clamp(health, 0, maxHealth);
+    }
+
     public void TakeDamage(float damage)
     {
         health -= damage;
