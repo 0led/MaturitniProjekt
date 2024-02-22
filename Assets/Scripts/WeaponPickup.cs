@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponPickup : MonoBehaviour
-{
+{ 
     
     public GameObject weaponPrefab;
     private GameObject potentialPicker;
@@ -18,7 +18,7 @@ public class WeaponPickup : MonoBehaviour
             Weapon weaponScript = gameObject.GetComponentInChildren<Weapon>();
             if (weaponScript != null)
         {
-            weaponScript.enabled = false; // Aktivuje skript Weapon na zbrani, kterou hráč sebral
+            weaponScript.enabled = false;
         }
         
         }
@@ -42,16 +42,8 @@ public class WeaponPickup : MonoBehaviour
             (potentialPicker.CompareTag("Player2") && Input.GetKeyDown(KeyCode.DownArrow)))
         {
             Transform firePoint = potentialPicker.CompareTag("Player1") ? playerMovement.FirePoint1 : playerMovement.FirePoint2;
-                        
-                        // Získání WeaponConfig pro sebranou zbraň
-            WeaponConfig weaponConfigToUse = weaponPrefab.GetComponent<Weapon>().weaponConfig;
-            
+            WeaponConfig weaponConfigToUse = weaponPrefab.GetComponent<Weapon>().weaponConfig;  
             GameObject newWeapon = potentialPicker.GetComponent<WeaponEquip>().EquipWeapon(weaponPrefab, firePoint, weaponConfigToUse);
-            //potentialPicker.GetComponent<WeaponEquip>().EquipWeapon(weaponPrefab, firePoint);
-
-            // Aktivuje skript Weapon na zbrani, kterou hráč právě sebral
-            //Weapon weaponScript = weaponPrefab.GetComponent<Weapon>();
-            //Weapon weaponScript = potentialPicker.GetComponentInChildren<Weapon>();
             Weapon weaponScript = newWeapon.GetComponent<Weapon>();
             if (weaponScript != null)
             {

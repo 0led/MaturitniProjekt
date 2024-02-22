@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     public Transform FirePoint2; 
     private bool facingRightP1 = true;
     private bool facingRightP2 = false;
+    public Transform WeaponHolder1;
+    public Transform WeaponHolder2;
     
     public bool GetFacingRightP1()
     {
@@ -65,22 +67,21 @@ public class PlayerMovement : MonoBehaviour
 
     void AdjustPlayer1ScaleAndRotation()
     {
-        Vector3 scale;
-        Vector3 rotation;
+        if (!facingRightP1)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+            FirePoint1.eulerAngles = new Vector3(0, 180, 0);
+            WeaponHolder1.eulerAngles = new Vector3(0, 180, 0);
+        }
+        else
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+            FirePoint1.eulerAngles = Vector3.zero;
+            WeaponHolder1.eulerAngles = Vector3.zero;
+        }
 
-    if (facingRightP1)
-    {
-        scale = new Vector3(0.3833f, 0.3833f, 0.3833f);
-        rotation = Vector3.zero;
-    }
-    else
-    {
-        scale = new Vector3(-0.3833f, 0.3833f, 0.3833f);
-        rotation = new Vector3(0, 180, 0);
-    }
-
-    gameObject.transform.localScale = scale;
-    FirePoint1.transform.eulerAngles = rotation;
+    FirePoint1.localScale = Vector3.one;
+    WeaponHolder1.localScale = Vector3.one;
     }
 
     void HandlePlayer2Movement()
@@ -104,21 +105,22 @@ public class PlayerMovement : MonoBehaviour
 
     void AdjustPlayer2ScaleAndRotation()
     {
-        Vector3 scale;
-        Vector3 rotation;
-
-        if (facingRightP2)
+        if (!facingRightP2)
         {
-            scale = new Vector3(-0.3833f, 0.3833f, 0.3833f);
-            rotation = Vector3.zero;
+            transform.localScale = new Vector3(1, 1, 1);
+            WeaponHolder2.localScale = new Vector3(-1, 1, 1);
+            FirePoint2.eulerAngles = new Vector3(0, 180, 0);
+            WeaponHolder2.eulerAngles = new Vector3(0, 180, 0);
         }
         else
         {
-            scale = new Vector3(0.3833f, 0.3833f, 0.3833f);
-            rotation = new Vector3(0, 180, 0);
+            transform.localScale = new Vector3(-1, 1, 1);
+            WeaponHolder2.localScale = new Vector3(-1, 1, 1);
+            FirePoint2.eulerAngles = Vector3.zero;
+            WeaponHolder2.eulerAngles = Vector3.zero;
         }
-
-        gameObject.transform.localScale = scale;
-        FirePoint2.transform.eulerAngles = rotation;
-    }
+    
+    FirePoint2.localScale = Vector3.one;
+    WeaponHolder2.localScale = Vector3.one;
+}
 }

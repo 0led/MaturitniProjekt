@@ -18,7 +18,6 @@ public class Bullet : MonoBehaviour
         range = config.range;
 
         rb.velocity = transform.right * speed;
-        Debug.Log("Bullet initialized with damage: " + damage); // Pro kontrolu
     }
 
     void Start()
