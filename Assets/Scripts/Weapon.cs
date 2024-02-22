@@ -107,15 +107,16 @@ public class Weapon : MonoBehaviour
     if (bulletScript != null)
     {
         bulletScript.Initialize(weaponConfig);
+    
+        // Ignoruje kolizi s colliderem hráče, který vystřelil
+        Collider2D playerCollider = transform.parent.parent.GetComponent<Collider2D>();
+        Collider2D bulletCollider = bulletObject.GetComponent<Collider2D>();
+        if (playerCollider != null && bulletCollider != null)
+        {
+            Physics2D.IgnoreCollision(playerCollider, bulletCollider);
+        }
     }
-    else
-    {
-        
-    }
-    }
-    else
-    {
-
+    
     }
 }
 }
