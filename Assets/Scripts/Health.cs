@@ -13,6 +13,7 @@ public class Health : MonoBehaviour
     private Text selectedHealthText;
     float health, maxHealth = 200;
     float lerpSpeed;
+    public bool IsImmune { get; set; } // Sleduje, zda je hráč imunní vůči poškození
 
     void Start()
     {
@@ -54,8 +55,32 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+if (!IsImmune) // Odečte zdraví pouze pokud hráč není imunní
+        {
+            health -= damage;
+            health = Mathf.Clamp(health, 0, maxHealth);
+    }
+
+        //health -= damage;
+        //health = Mathf.Clamp(health, 0, maxHealth);
+
+/*
+if (IsImmune)
+        {
+            return; // Hráč je imunní, nedojde k poškození
+        }
+
+        // Zde pokračuje běžná logika pro poškození
         health -= damage;
-        health = Mathf.Clamp(health, 0, maxHealth);
+
+health = Mathf.Clamp(health, 0, maxHealth);
+*/
+
+
+    
+    
+    
+    
     }
 
     void HealthBarFiller()
@@ -75,3 +100,4 @@ public class Health : MonoBehaviour
         }
     }
 }
+
