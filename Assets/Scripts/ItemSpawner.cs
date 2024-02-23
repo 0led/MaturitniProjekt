@@ -5,55 +5,61 @@ using System.Linq;
 
 public class ItemSpawner : MonoBehaviour
 {
-    public GameObject ARPrefab;
+     public GameObject ARPrefab;
     public GameObject SMGPrefab;
     private GameObject player1;
     private GameObject player2;
     public float minimumDistance = 20f;
-    public float spawnDelay = 2f;
-    public float destroyDelay = 5f;
+    public float spawnDelay = 10f;
+    public float destroyDelay = 10f;
     public GameObject[] spawnPoints;
     public GameObject[] powerUpPrefabs;
     private bool[] isSpawnPointOccupied;
     private bool spawnWeaponNext = true;
+    private GameObject[] spawnedObjects;
 
     private void Start()
     {
         player1 = GameObject.FindWithTag("Player1");
         player2 = GameObject.FindWithTag("Player2");
         isSpawnPointOccupied = new bool[spawnPoints.Length];
-        StartCoroutine(SpawnWeaponAfterDelay());
+        spawnedObjects = new GameObject[spawnPoints.Length]; // Inicializace pole
+        StartCoroutine(SpawnItems());
     }
 
-    private IEnumerator SpawnWeaponAfterDelay()
+    private IEnumerator SpawnItems()
     {
         while (true)
         {
-        yield return new WaitForSeconds(spawnDelay);
+            yield return new WaitForSeconds(spawnDelay);
 
-        var availableSpawnPoints = spawnPoints
+            // Vytvořit seznam dostupných spawnpointů
+            var availableSpawnPoints = spawnPoints
                 .Select((point, index) => new { Point = point, Index = index })
-                .Where(sp => !isSpawnPointOccupied[sp.Index])
+                .Where(sp => !isSpawnPointOccupied[sp.Index] && 
+                             Vector3.Distance(sp.Point.transform.position, player1.transform.position) > minimumDistance &&
+                             Vector3.Distance(sp.Point.transform.position, player2.transform.position) > minimumDistance)
                 .ToList();
 
-        if (availableSpawnPoints.Count > 0)
+            if (availableSpawnPoints.Count > 0)
             {
                 var spawnInfo = availableSpawnPoints[Random.Range(0, availableSpawnPoints.Count)];
-                //GameObject weaponToSpawn = Random.Range(0, 2) == 0 ? ARPrefab : SMGPrefab;
+                isSpawnPointOccupied[spawnInfo.Index] = true;
                 GameObject itemToSpawn = spawnWeaponNext ? ChooseWeapon() : ChoosePowerUp();
                 Vector2 spawnPosition = spawnInfo.Point.transform.position;
-                //GameObject spawnedWeapon = Instantiate(weaponToSpawn, spawnPosition, Quaternion.identity);
-                //Debug.Log("Spawning power-up at position (before Instantiate):" + spawnInfo.Point.transform.position);
                 GameObject spawnedItem = Instantiate(itemToSpawn, spawnPosition, Quaternion.identity);
-                //Debug.Log("Spawning power-up at position (after Instantiate):" + spawnedItem.transform.position);
-                //Debug.Break();
-                //spawnedItem.GetComponent<Weapon>().enabled = false;
-                
-                isSpawnPointOccupied[spawnInfo.Index] = true;
-                Destroy(spawnedItem, destroyDelay);
+                spawnedObjects[spawnInfo.Index] = spawnedItem; // Uložení reference na vytvořený objekt
+
+                // Nastavit timer pro uvolnění spawnpointu a zničení itemu
                 StartCoroutine(ReleaseSpawnPoint(spawnInfo.Index, destroyDelay));
 
-                spawnWeaponNext = !spawnWeaponNext; // Přepněte na druhý typ položky pro další spawn
+                // Přepněte na druhý typ položky pro další spawn
+                spawnWeaponNext = !spawnWeaponNext;
+            }
+            else
+            {
+                // Pokud nejsou dostupné žádné spawnpointy, čekejte další cyklus
+                continue;
             }
         }
     }
@@ -61,7 +67,24 @@ public class ItemSpawner : MonoBehaviour
     private IEnumerator ReleaseSpawnPoint(int index, float delay)
     {
         yield return new WaitForSeconds(delay);
+          GameObject obj = spawnedObjects[index];
+        if (obj != null && obj.activeInHierarchy)
+    {
+        // Před zničením zkontrolujte, zda objekt není skrytý immunity power-up
+        if (!obj.CompareTag("ImmunityPowerUp"))  // Předpokládá, že máte nastavený specifický tag pro immunity power-up
+        {
+            Destroy(obj);
+        }
+    }
+    isSpawnPointOccupied[index] = false;
+        /*
+        if (spawnedObjects[index] != null)
+    {
+        Destroy(spawnedObjects[index]); // Zničení objektu
+    }
         isSpawnPointOccupied[index] = false;
+        // Tady by měla být logika pro zničení objektu, pokud existuje
+        */
     }
 
     private GameObject ChooseWeapon()
@@ -75,22 +98,5 @@ public class ItemSpawner : MonoBehaviour
         // Logika pro výběr a vrácení prefabu power-upu
         int powerUpIndex = Random.Range(0, powerUpPrefabs.Length);
         return powerUpPrefabs[powerUpIndex];
-    }
-
-    private Vector2 CalculateSpawnPosition()
-    {
-        var validSpawnPoints = spawnPoints.Where(spawnPoint => 
-        (spawnPoint.transform.position - player1.transform.position).magnitude > minimumDistance &&
-        (spawnPoint.transform.position - player2.transform.position).magnitude > minimumDistance).ToArray();
-        
-        if (validSpawnPoints.Length > 0)
-        {
-            int randomIndex = Random.Range(0, validSpawnPoints.Length);
-            return validSpawnPoints[randomIndex].transform.position;
-        }
-        else
-        {
-            return Vector2.zero;
-        }
     }
 }

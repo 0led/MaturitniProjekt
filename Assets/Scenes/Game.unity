@@ -458,7 +458,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.25882354, g: 0.5568628, b: 0.42745098, a: 1}
+  m_Color: {r: 0.25882354, g: 0.5568628, b: 0.427451, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1193,7 +1193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fa9a7d3d17d41541bd82521514925cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 12
+  moveSpeed: 12
   jumpForce: 15
   _rigidbody: {fileID: 0}
   FirePoint1: {fileID: 1351091164}
@@ -2128,7 +2128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ARPrefab: {fileID: 7525959385491884607, guid: c1019c056db83e64f9417bdbf0718075, type: 3}
   SMGPrefab: {fileID: 7690337310853105499, guid: 1f97b8737422446419dc39880af7cc66, type: 3}
-  minimumDistance: 5
+  minimumDistance: 20
   spawnDelay: 2
   destroyDelay: 5
   spawnPoints:
@@ -2141,6 +2141,8 @@ MonoBehaviour:
   - {fileID: 1926113528}
   powerUpPrefabs:
   - {fileID: 7168985345473533035, guid: d322c5a7b1d088f499ed3892b8b6442c, type: 3}
+  - {fileID: 4138656207530048426, guid: 09c46602251987641a0f74069f6f48d2, type: 3}
+  - {fileID: 2518135710446007807, guid: bbee8bee169a5c044bf4b13e0b89908c, type: 3}
 --- !u!1 &1125050690
 GameObject:
   m_ObjectHideFlags: 0
@@ -2996,7 +2998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fa9a7d3d17d41541bd82521514925cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 12
+  moveSpeed: 12
   jumpForce: 15
   _rigidbody: {fileID: 0}
   FirePoint1: {fileID: 0}
