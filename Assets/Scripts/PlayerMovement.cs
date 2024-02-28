@@ -16,12 +16,11 @@ public class PlayerMovement : MonoBehaviour
     public Transform WeaponHolder1;
     public Transform WeaponHolder2;
    
-   private float originalSpeed;
- public bool IsSpeedBoosted { get; set; }
-  public Coroutine SpeedBoostCoroutine { get; set; } // Přidána proměnná Coroutine
+    private float originalSpeed;
+    public bool IsSpeedBoosted { get; set; }
+    public Coroutine SpeedBoostCoroutine { get; set; } // Přidána proměnná Coroutine
 
-
-private void Awake()
+    private void Awake()
     {
         originalSpeed = moveSpeed; // Uložíme původní rychlost v Awake, která se volá před Start
     }
@@ -138,15 +137,15 @@ private void Awake()
     {
         if (!facingRightP2)
         {
-            transform.localScale = new Vector3(1, 1, 1);
-            WeaponHolder2.localScale = new Vector3(1, 1, 1);
-            WeaponHolder2.eulerAngles = new Vector3(0, -180, 0);
-            FirePoint2.eulerAngles = new Vector3(0, -180, 0);
+            transform.localScale = new Vector3(-1, 1, 1);
+            WeaponHolder2.localScale = new Vector3(-1, 1, 1);
+            WeaponHolder2.eulerAngles = new Vector3(0, 180, 0);
+            FirePoint2.eulerAngles = new Vector3(0, 180, 0);
         }
         else
         {
-            transform.localScale = new Vector3(-1, 1, 1);
-            WeaponHolder2.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(1, 1, 1);
+            WeaponHolder2.localScale = new Vector3(1, 1, 1);
             WeaponHolder2.eulerAngles = Vector3.zero;
             FirePoint2.eulerAngles = Vector3.zero;
         }
