@@ -74,13 +74,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e0966f6c8c721fa4cba052be14d38821, type: 3}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 2048500999656402752, guid: 9e8d66503a587bd4b9e45041358f583e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.52, y: 1.14}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -118,18 +118,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0017514229, y: -0.00017374754}
+  m_Offset: {x: -0.0017514229, y: 0.0010933578}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 0.84, y: 0.38}
+    newSize: {x: 2.52, y: 1.14}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.69381046, y: 0.504817}
+  m_Size: {x: 0.85600245, y: 0.39584416}
   m_EdgeRadius: 0
 --- !u!114 &2750925599259493604
 MonoBehaviour:
@@ -144,7 +144,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 8204321080010350686, guid: c1d026e44e8af944da7f9dd0f4a774b5, type: 3}
-  firePoint1: {fileID: 3855098159651015273, guid: 5ff6e6e2b4b748c49aa9c681e43ca6ad, type: 3}
-  firePoint2: {fileID: 6491918395984706741, guid: 8981f0abeaf0dc4498d3a952692e9c49, type: 3}
+  firePoint: {fileID: 0}
   weaponConfig: {fileID: 11400000, guid: 17d682d1886d0d74a9437b889d275a9c, type: 2}
   isStartingWeapon: 1

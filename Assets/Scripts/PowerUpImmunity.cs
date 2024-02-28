@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PowerUpImmunity : MonoBehaviour
 {
-     public float immunityDuration = 5f; // Doba trvání imunity
+    public float immunityDuration = 5f; // Doba trvání imunity
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -47,6 +47,7 @@ public class PowerUpImmunity : MonoBehaviour
         {
             playerHealth.IsImmune = false;
             Debug.Log(playerTag + " immunity ended, IsImmune: " + playerHealth.IsImmune);
+            Destroy(gameObject); // Zde zničí power-up objekt po vypršení imunity
         }
         else
     {
