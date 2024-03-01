@@ -50,7 +50,8 @@ public class WeaponPickup : MonoBehaviour
                 weaponScript.enabled = true;
             }
 
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 }
