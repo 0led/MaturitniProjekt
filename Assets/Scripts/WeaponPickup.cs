@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class WeaponPickup : MonoBehaviour
 { 
-    
     public GameObject weaponPrefab;
     private GameObject potentialPicker;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-       
         if (collision.gameObject.CompareTag("Player1") || collision.gameObject.CompareTag("Player2"))
         {
             potentialPicker = collision.gameObject;
@@ -20,7 +18,6 @@ public class WeaponPickup : MonoBehaviour
         {
             weaponScript.enabled = false;
         }
-        
         }
     }
 
@@ -50,10 +47,8 @@ public class WeaponPickup : MonoBehaviour
                 weaponScript.enabled = true;
             }
 
-            //gameObject.SetActive(false);
             Destroy(gameObject);
         }
     }
 }
-
 }

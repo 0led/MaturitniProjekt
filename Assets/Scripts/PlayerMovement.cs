@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,19 +18,15 @@ public class PlayerMovement : MonoBehaviour
    
     private float originalSpeed;
     public bool IsSpeedBoosted { get; set; }
-    public Coroutine SpeedBoostCoroutine { get; set; } // Přidána proměnná Coroutine
+    public Coroutine SpeedBoostCoroutine { get; set; }
 
     private void Awake()
     {
-        originalSpeed = moveSpeed; // Uložíme původní rychlost v Awake, která se volá před Start
+        originalSpeed = moveSpeed;
     }
 
     public void ApplySpeedBoost(float boostAmount, float duration)
     {
-       if (SpeedBoostCoroutine != null)
-        {
-            //StopCoroutine(SpeedBoostCoroutine);
-        }
         SpeedBoostCoroutine = StartCoroutine(SpeedBoost(boostAmount, duration));
     }
 
@@ -41,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(duration);
         moveSpeed = originalSpeed;
         IsSpeedBoosted = false;
-        SpeedBoostCoroutine = null; // Nastavení Coroutine na null po jejím dokončení
+        SpeedBoostCoroutine = null;
     }
     
     public bool GetFacingRightP1()
@@ -109,9 +105,6 @@ public class PlayerMovement : MonoBehaviour
             WeaponHolder1.eulerAngles = Vector3.zero;
             FirePoint1.eulerAngles = Vector3.zero;
         }
-
-    //FirePoint1.localScale = Vector3.one;
-    //WeaponHolder1.localScale = Vector3.one;
     }
 
     void HandlePlayer2Movement()
@@ -149,8 +142,5 @@ public class PlayerMovement : MonoBehaviour
             WeaponHolder2.eulerAngles = Vector3.zero;
             FirePoint2.eulerAngles = Vector3.zero;
         }
-    
-    //FirePoint2.localScale = Vector3.one;
-    //WeaponHolder2.localScale = Vector3.one;
 }
 }

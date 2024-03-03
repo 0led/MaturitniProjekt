@@ -14,9 +14,8 @@ public class Weapon : MonoBehaviour
 
     void Start()
     {
-       
-    if (isStartingWeapon)
-    {
+        if (isStartingWeapon)
+        {
         Transform weaponHolder = transform.parent;
 
         if (weaponHolder.parent.CompareTag("Player1"))
@@ -28,15 +27,6 @@ public class Weapon : MonoBehaviour
         {
             SetPlayerIdentifier(2);
             firePoint = weaponHolder.parent.Find("FirePoint2");
-        }
-
-        if (firePoint == null)
-        {
-
-        }
-        else
-        {
-
         }
     }
     }
@@ -57,66 +47,52 @@ public class Weapon : MonoBehaviour
     {
         firePoint = newFirePoint;
     }
-    else
-    {
-
     }
-    }
-
-
 
     void Update()
     {
    
         if (playerIdentifier == 1 && Input.GetKeyDown(KeyCode.Space))
-    {
+        {
         if (firePoint != null)
         {
             Shoot(weaponConfig);
         }
-        else
-        {
-
         }
-    }
-    else if (playerIdentifier == 2 && Input.GetKeyDown(KeyCode.Return))
-    {
+
+        else if (playerIdentifier == 2 && Input.GetKeyDown(KeyCode.Return))
+        {
         if (firePoint != null)
         {
             Shoot(weaponConfig);
         }
-        else
-        {
-
         }
-    }
     }
       
     void Shoot(WeaponConfig weaponConfig)
     {
 
-    if (firePoint == null)
-    {
-        return;
-    }
+        if (firePoint == null)
+        {
+            return;
+        }
 
-    if (firePoint != null){
-    GameObject bulletObject = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-    Bullet bulletScript = bulletObject.GetComponent<Bullet>();
+        if (firePoint != null){
+            GameObject bulletObject = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            Bullet bulletScript = bulletObject.GetComponent<Bullet>();
     
-    if (bulletScript != null)
-    {
-        bulletScript.Initialize(weaponConfig);
+        if (bulletScript != null)
+        {
+            bulletScript.Initialize(weaponConfig);
     
-        // Ignoruje kolizi s colliderem hráče, který vystřelil
-        Collider2D playerCollider = transform.parent.parent.GetComponent<Collider2D>();
-        Collider2D bulletCollider = bulletObject.GetComponent<Collider2D>();
+            Collider2D playerCollider = transform.parent.parent.GetComponent<Collider2D>();
+            Collider2D bulletCollider = bulletObject.GetComponent<Collider2D>();
+        
         if (playerCollider != null && bulletCollider != null)
         {
             Physics2D.IgnoreCollision(playerCollider, bulletCollider);
         }
-    }
-    
+        }
     }
 }
 }
