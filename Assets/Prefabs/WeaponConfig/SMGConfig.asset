@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: SMGConfig
   m_EditorClassIdentifier: 
   damage: 12
-  range: 5
+  range: 6
   speed: 15
+  ammo: 20

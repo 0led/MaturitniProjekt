@@ -6,4 +6,5 @@ public class WeaponConfig : ScriptableObject
     public float damage;
     public float range;
     public float speed;
+    public int ammo;
 }
