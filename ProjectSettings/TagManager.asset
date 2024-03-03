@@ -51,3 +51,6 @@ TagManager:
   - name: Weapon
     uniqueID: 1862507321
     locked: 0
+  - name: Power-Up
+    uniqueID: 450640835
+    locked: 0

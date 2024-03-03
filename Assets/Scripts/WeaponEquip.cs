@@ -34,6 +34,13 @@ public class WeaponEquip : MonoBehaviour
             newWeaponScript.SetPlayerIdentifier(2);
         } 
     }
+
+    if (newWeaponScript != null)
+    {
+        newWeaponScript.SetWeaponConfig(newWeaponConfig);
+        newWeaponScript.currentAmmo = newWeaponConfig.ammo;
+        newWeaponScript.UpdateAmmoText();
+    }
     
     return weaponInstance;
    

@@ -15,3 +15,4 @@ MonoBehaviour:
   damage: 8
   range: 10
   speed: 10
+  ammo: 32

@@ -11,9 +11,16 @@ public class Weapon : MonoBehaviour
     public WeaponConfig weaponConfig;
     public bool isStartingWeapon = false;
     private int playerIdentifier;
+    private PlayerMovement playerMovement;
+
+    public int currentAmmo;
 
     void Start()
     {
+        currentAmmo = weaponConfig.ammo;
+
+        playerMovement = GetComponentInParent<PlayerMovement>();
+
         if (isStartingWeapon)
         {
         Transform weaponHolder = transform.parent;
@@ -29,6 +36,15 @@ public class Weapon : MonoBehaviour
             firePoint = weaponHolder.parent.Find("FirePoint2");
         }
     }
+
+    UpdateAmmoText();
+
+    }
+
+    public void SetAmmo(int ammo)
+    {
+        currentAmmo = ammo;
+        UpdateAmmoText();
     }
        
     public void SetPlayerIdentifier(int identifier)
@@ -51,35 +67,27 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
-   
-        if (playerIdentifier == 1 && Input.GetKeyDown(KeyCode.Space))
         {
-        if (firePoint != null)
-        {
-            Shoot(weaponConfig);
-        }
-        }
-
-        else if (playerIdentifier == 2 && Input.GetKeyDown(KeyCode.Return))
-        {
-        if (firePoint != null)
+        if ((playerIdentifier == 1 && Input.GetKeyDown(KeyCode.Space)) || 
+            (playerIdentifier == 2 && Input.GetKeyDown(KeyCode.Return)))
         {
             Shoot(weaponConfig);
         }
-        }
+    }
     }
       
     void Shoot(WeaponConfig weaponConfig)
     {
-
-        if (firePoint == null)
+        if (currentAmmo <= 0)
         {
             return;
         }
 
-        if (firePoint != null){
-            GameObject bulletObject = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-            Bullet bulletScript = bulletObject.GetComponent<Bullet>();
+        currentAmmo--;
+        UpdateAmmoText();
+
+        GameObject bulletObject = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Bullet bulletScript = bulletObject.GetComponent<Bullet>();
     
         if (bulletScript != null)
         {
@@ -93,6 +101,14 @@ public class Weapon : MonoBehaviour
             Physics2D.IgnoreCollision(playerCollider, bulletCollider);
         }
         }
+    
     }
-}
+
+    public void UpdateAmmoText()
+    {
+        if (playerMovement != null)
+        {
+            playerMovement.UpdateAmmoText(currentAmmo, playerIdentifier);
+        }
+    }
 }

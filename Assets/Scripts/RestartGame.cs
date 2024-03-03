@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayButton : MonoBehaviour
+public class RestartGame : MonoBehaviour
 {
-    public void LoadRandomMap()
+    public void LoadGameScene()
     
     /*
-     {
+    {
         // Náhodně vybere mezi map1 a map2
         int sceneIndex = Random.Range(0, 2);
         string sceneName = sceneIndex == 0 ? "Map1" : "Map2";
@@ -16,7 +16,7 @@ public class PlayButton : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
     */
-    
+
     {
         SceneManager.LoadScene("Map1");
     }

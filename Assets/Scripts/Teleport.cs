@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Teleport : MonoBehaviour
 {
-    public float leftBoundary = -11f;
-    public float rightBoundary = 11f;
+    public float leftBoundary = -12f;
+    public float rightBoundary = 12f;
 
     void Update()
     {

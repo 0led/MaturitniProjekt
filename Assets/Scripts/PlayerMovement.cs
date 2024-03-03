@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     private bool facingRightP2 = false;
     public Transform WeaponHolder1;
     public Transform WeaponHolder2;
+    public Text ammoText1;
+    public Text ammoText2;
    
     private float originalSpeed;
     public bool IsSpeedBoosted { get; set; }
@@ -40,6 +43,18 @@ public class PlayerMovement : MonoBehaviour
         SpeedBoostCoroutine = null;
     }
     
+    public void UpdateAmmoText(int ammo, int playerIdentifier)
+    {
+        if (playerIdentifier == 1 && ammoText1 != null)
+        {
+            ammoText1.text = ammo.ToString();
+        }
+        else if (playerIdentifier == 2 && ammoText2 != null)
+        {
+            ammoText2.text = ammo.ToString();
+        }
+    }
+
     public bool GetFacingRightP1()
     {
         return facingRightP1;
