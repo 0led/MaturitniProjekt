@@ -7,9 +7,7 @@ public class WeaponEquip : MonoBehaviour
     public Transform weaponHolder;
 
     public GameObject EquipWeapon(GameObject weaponPrefab, Transform firePoint, WeaponConfig newWeaponConfig)
-    
     {
-
     foreach (Transform child in weaponHolder)
     {
         Destroy(child.gameObject);
@@ -19,6 +17,7 @@ public class WeaponEquip : MonoBehaviour
     weaponInstance.transform.localPosition = Vector3.zero;
     weaponInstance.transform.localRotation = Quaternion.identity;
     Weapon newWeaponScript = weaponInstance.GetComponent<Weapon>();
+    
     if (newWeaponScript != null)
     {
         newWeaponScript.enabled = true;
@@ -30,12 +29,12 @@ public class WeaponEquip : MonoBehaviour
         
         if (weaponHolder.CompareTag("Player1")) {
             newWeaponScript.SetPlayerIdentifier(1);
-        } else if (weaponHolder.CompareTag("Player2")) {
+        } 
+        else if (weaponHolder.CompareTag("Player2")) {
             newWeaponScript.SetPlayerIdentifier(2);
         } 
-    
     }
-
+    
     return weaponInstance;
    
     }
