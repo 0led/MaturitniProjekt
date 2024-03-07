@@ -1,4 +1,0 @@
-# MaturitniProjekt
-
-## Zadani
-- dodelat projekt
