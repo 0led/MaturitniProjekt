@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 1862507321
   m_SortingLayer: 2
   m_SortingOrder: 2
-  m_Sprite: {fileID: 2048500999656402752, guid: 9e8d66503a587bd4b9e45041358f583e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d3b46444e6c06824c9e89e146c9eae93, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -147,3 +147,4 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   weaponConfig: {fileID: 11400000, guid: 17d682d1886d0d74a9437b889d275a9c, type: 2}
   isStartingWeapon: 1
+  currentAmmo: 0

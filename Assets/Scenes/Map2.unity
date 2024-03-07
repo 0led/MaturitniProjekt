@@ -1015,7 +1015,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2302634176937429977, guid: 2679e09b690fd704c9eef85f85c33462, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 89c105114a8c2f04aaf2af51bbe257bb, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1287,12 +1287,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -6470704555404585990, guid: e33f42cc0ec07284ba3a803bf15e0e31, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2be1e789789b04a44940cff3d7bab13e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.555, y: 0.75}
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1541,6 +1541,8 @@ MonoBehaviour:
   FirePoint2: {fileID: 0}
   WeaponHolder1: {fileID: 249906691}
   WeaponHolder2: {fileID: 0}
+  ammoText1: {fileID: 0}
+  ammoText2: {fileID: 0}
 --- !u!224 &497471380
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2955,7 +2957,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2302634176937429977, guid: 2679e09b690fd704c9eef85f85c33462, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 89c105114a8c2f04aaf2af51bbe257bb, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3563,12 +3565,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -6470704555404585990, guid: e33f42cc0ec07284ba3a803bf15e0e31, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2be1e789789b04a44940cff3d7bab13e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.555, y: 0.75}
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -3891,6 +3893,8 @@ MonoBehaviour:
   FirePoint2: {fileID: 527331737}
   WeaponHolder1: {fileID: 0}
   WeaponHolder2: {fileID: 1601423796}
+  ammoText1: {fileID: 0}
+  ammoText2: {fileID: 0}
 --- !u!4 &1819522911
 Transform:
   m_ObjectHideFlags: 0
