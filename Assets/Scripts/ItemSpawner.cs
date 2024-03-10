@@ -33,33 +33,41 @@ public class ItemSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(spawnDelay);
 
-            var availableSpawnPoints = spawnPoints
-                .Select((point, index) => new { Point = point, Index = index })
-                .Where(sp => !isSpawnPointOccupied[sp.Index] && 
-                             Vector3.Distance(sp.Point.transform.position, player1.transform.position) > minimumDistance &&
-                             Vector3.Distance(sp.Point.transform.position, player2.transform.position) > minimumDistance)
-                .ToList();
+        var shuffledAvailableSpawnPoints = spawnPoints
+            .Select((point, index) => new { Point = point, Index = index })
+            .Where(sp => !isSpawnPointOccupied[sp.Index] &&
+                         Vector3.Distance(sp.Point.transform.position, player1.transform.position) > minimumDistance &&
+                         Vector3.Distance(sp.Point.transform.position, player2.transform.position) > minimumDistance)
+            .OrderBy(_ => Random.value)
+            .ToList();
 
-            if (availableSpawnPoints.Count > 0)
-            {
-                var spawnInfo = availableSpawnPoints[Random.Range(0, availableSpawnPoints.Count)];
-                isSpawnPointOccupied[spawnInfo.Index] = true;
-                GameObject itemToSpawn = spawnWeaponNext ? ChooseWeapon() : ChoosePowerUp();
-                Vector2 spawnPosition = spawnInfo.Point.transform.position;
-                GameObject spawnedItem = Instantiate(itemToSpawn, spawnPosition, Quaternion.identity);
-                spawnedObjects[spawnInfo.Index] = spawnedItem;
+    if (shuffledAvailableSpawnPoints.Count > 0)
+        {
+            var spawnInfo = shuffledAvailableSpawnPoints[0];
+            isSpawnPointOccupied[spawnInfo.Index] = true;
+            GameObject itemToSpawn = spawnWeaponNext ? ChooseWeapon() : ChoosePowerUp();
+            Vector2 spawnPosition = spawnInfo.Point.transform.position;
+            GameObject spawnedItem = Instantiate(itemToSpawn, spawnPosition, Quaternion.identity);
+            spawnedObjects[spawnInfo.Index] = spawnedItem;
 
-                StartCoroutine(ReleaseSpawnPoint(spawnInfo.Index, destroyDelay));
+            StartCoroutine(ReleaseSpawnPoint(spawnInfo.Index, destroyDelay));
 
-                spawnWeaponNext = !spawnWeaponNext;
-            }
-            else
-            {
-                continue;
-            }
+            spawnWeaponNext = !spawnWeaponNext;
         }
+        else
+        {
+            continue;
+        }
+        
     }
-    
+}
+
+    private bool IsSpawnPointValid(Vector3 spawnPointPosition)
+    {   
+        return Vector3.Distance(spawnPointPosition, player1.transform.position) > minimumDistance &&
+               Vector3.Distance(spawnPointPosition, player2.transform.position) > minimumDistance; 
+    }
+  
     private IEnumerator ReleaseSpawnPoint(int index, float delay)
     {
         yield return new WaitForSeconds(delay);
