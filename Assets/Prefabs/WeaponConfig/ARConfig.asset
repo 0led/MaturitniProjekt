@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ad02d0e9f624564d9ff8d40c4581e35, type: 3}
   m_Name: ARConfig
   m_EditorClassIdentifier: 
-  damage: 20
+  damage: 15
   range: 15
   speed: 12
   ammo: 30
