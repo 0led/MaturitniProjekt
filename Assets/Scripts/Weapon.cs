@@ -67,6 +67,9 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
+        if (!GameStarter.GameHasStarted)
+        return;
+
         {
         if ((playerIdentifier == 1 && Input.GetKeyDown(KeyCode.Space)) || 
             (playerIdentifier == 2 && Input.GetKeyDown(KeyCode.Return)))

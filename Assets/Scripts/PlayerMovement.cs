@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 12;
-    public float jumpForce = 15;
+    public float moveSpeed = 12f;
+    public float jumpForce = 17f;
     public Rigidbody2D _rigidbody;
     private float lastJumpTime = 0.0f;
     private float jumpCooldown = 0.5f;
@@ -72,6 +72,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (!GameStarter.GameHasStarted)
+        return;
+
         if (gameObject.tag == "Player1")
         {
             HandlePlayer1Movement();

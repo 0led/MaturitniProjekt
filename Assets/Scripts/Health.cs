@@ -58,12 +58,20 @@ public class Health : MonoBehaviour
         {
             health -= damage;
             health = Mathf.Clamp(health, 0, maxHealth);
-        }
-
-        if (health == 0)
+        
+            if (health <= 0)
             {
-                SceneManager.LoadScene("EndMenu");
+                if(gameObject.tag == "Player1")
+                {
+                    SceneManager.LoadScene("Player2Win");
+                }
+                else if(gameObject.tag == "Player2")
+                {
+                    SceneManager.LoadScene("Player1Win");
+                }
             }
+        
+        }
     }
 
     void HealthBarFiller()
