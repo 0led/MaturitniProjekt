@@ -6,11 +6,20 @@ using UnityEngine.UI;
 public class GameStarter : MonoBehaviour
 {
     public Text countdownText;
+    public static bool GameHasStarted = false;
 
     void Start()
     {
         Time.timeScale = 0;
+        
         StartCoroutine(StartCountdown());
+        
+        GameHasStarted = false;
+
+    }
+
+    void Update(){
+        Debug.Log(Time.timeScale);
     }
 
     IEnumerator StartCountdown()
@@ -25,5 +34,8 @@ public class GameStarter : MonoBehaviour
 
         Time.timeScale = 1;
         countdownText.gameObject.SetActive(false);
+
+        GameHasStarted = true;
     }
+
 }
