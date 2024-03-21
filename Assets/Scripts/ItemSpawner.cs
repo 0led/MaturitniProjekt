@@ -9,9 +9,9 @@ public class ItemSpawner : MonoBehaviour
     public GameObject SMGPrefab;
     private GameObject player1;
     private GameObject player2;
-    public float minimumDistance = 20f;
-    public float spawnDelay = 2f;
-    public float destroyDelay = 5f;
+    public float minimumDistance = 7f;
+    public float spawnDelay = 4f;
+    public float destroyDelay = 7f;
     public GameObject[] spawnPoints;
     public GameObject[] powerUpPrefabs;
     private bool[] isSpawnPointOccupied;
@@ -74,12 +74,35 @@ public class ItemSpawner : MonoBehaviour
           GameObject obj = spawnedObjects[index];
         if (obj != null && obj.activeInHierarchy)
     {
-        if (!obj.CompareTag("ImmunityPowerUp"))
+        if (obj.CompareTag("ImmunityPowerUp"))
+        {
+            SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.enabled = false;
+            }
+
+            BoxCollider2D collider = obj.GetComponent<BoxCollider2D>();
+            if (collider != null)
+            {
+                collider.enabled = false;
+            }
+            
+            StartCoroutine(RemoveAfterDelay(obj, 7f));
+        }
+        else
         {
             Destroy(obj);
         }
+        
     }
         isSpawnPointOccupied[index] = false;  
+    }
+
+    private IEnumerator RemoveAfterDelay(GameObject obj, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(obj);
     }
 
     private GameObject ChooseWeapon()
