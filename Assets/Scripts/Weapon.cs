@@ -57,7 +57,7 @@ public class Weapon : MonoBehaviour
         weaponConfig = newConfig;
     }
 
-      public void SetFirePoint(Transform newFirePoint)
+    public void SetFirePoint(Transform newFirePoint)
     {
         if (newFirePoint != null)
     {
