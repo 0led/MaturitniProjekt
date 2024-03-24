@@ -18,10 +18,6 @@ public class GameStarter : MonoBehaviour
 
     }
 
-    void Update(){
-        Debug.Log(Time.timeScale);
-    }
-
     IEnumerator StartCountdown()
     {
         float countdown = 3;

@@ -8,6 +8,7 @@ public class WeaponEquip : MonoBehaviour
 
     public GameObject EquipWeapon(GameObject weaponPrefab, Transform firePoint, WeaponConfig newWeaponConfig)
     {
+    
     foreach (Transform child in weaponHolder)
     {
         Destroy(child.gameObject);
@@ -16,12 +17,14 @@ public class WeaponEquip : MonoBehaviour
     GameObject weaponInstance = Instantiate(weaponPrefab, weaponHolder.position, Quaternion.identity, weaponHolder);
     weaponInstance.transform.localPosition = Vector3.zero;
     weaponInstance.transform.localRotation = Quaternion.identity;
-    Weapon newWeaponScript = weaponInstance.GetComponent<Weapon>();
     
+    Weapon newWeaponScript = weaponInstance.GetComponent<Weapon>();
     if (newWeaponScript != null)
     {
         newWeaponScript.enabled = true;
         newWeaponScript.SetWeaponConfig(newWeaponConfig);
+        newWeaponScript.currentAmmo = newWeaponConfig.ammo;
+        newWeaponScript.UpdateAmmoText();
         
         PlayerMovement playerMovement = weaponHolder.GetComponentInParent<PlayerMovement>();
         Transform playerFirePoint = weaponHolder.CompareTag("Player1") ? playerMovement.FirePoint1 : playerMovement.FirePoint2;
@@ -35,13 +38,6 @@ public class WeaponEquip : MonoBehaviour
         } 
     }
 
-    if (newWeaponScript != null)
-    {
-        newWeaponScript.SetWeaponConfig(newWeaponConfig);
-        newWeaponScript.currentAmmo = newWeaponConfig.ammo;
-        newWeaponScript.UpdateAmmoText();
-    }
-    
     return weaponInstance;
    
     }
