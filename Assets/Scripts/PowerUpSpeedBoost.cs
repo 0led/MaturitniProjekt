@@ -40,19 +40,4 @@ public class PowerUpSpeedBoost : MonoBehaviour
             }
         }
     }
-
-    private IEnumerator ApplySpeedBoost(PlayerMovement playerMovement)
-    {
-        playerMovement.IsSpeedBoosted = true;
-        float originalSpeed = playerMovement.moveSpeed;
-        playerMovement.moveSpeed += speedBoostAmount;
-
-        yield return new WaitForSeconds(boostDuration);
-
-        if (playerMovement != null)
-        {
-            playerMovement.moveSpeed = originalSpeed;
-            playerMovement.IsSpeedBoosted = false;
-        }
-    }
 }
