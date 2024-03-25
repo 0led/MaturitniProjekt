@@ -71,10 +71,11 @@ public class ItemSpawner : MonoBehaviour
     private IEnumerator ReleaseSpawnPoint(int index, float delay)
     {
         yield return new WaitForSeconds(delay);
-          GameObject obj = spawnedObjects[index];
-        if (obj != null && obj.activeInHierarchy)
+        GameObject obj = spawnedObjects[index];
+    
+    if (obj != null && obj.activeInHierarchy)
     {
-        if (obj.CompareTag("ImmunityPowerUp"))
+        if (obj.CompareTag("ImmunityPowerUp") || obj.CompareTag("SpeedPowerUp"))
         {
             SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
             if (spriteRenderer != null)
