@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PowerUpHealth : MonoBehaviour
 {
-    public float healthBoost = 50;
+    public float healthBoost = 100;
     private GameObject potentialPicker;
 
     void OnTriggerEnter2D(Collider2D collision)
