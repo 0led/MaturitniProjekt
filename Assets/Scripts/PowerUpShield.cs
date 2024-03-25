@@ -47,6 +47,7 @@ public class PowerUpShield : MonoBehaviour
             {
                 spriteRenderer.enabled = false;
             }
+            
             Collider2D collider = GetComponent<Collider2D>();
             if (collider != null)
             {

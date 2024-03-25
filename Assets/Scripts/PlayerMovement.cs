@@ -19,30 +19,6 @@ public class PlayerMovement : MonoBehaviour
     public Text ammoText1;
     public Text ammoText2;
    
-    private float originalSpeed;
-    public bool IsSpeedBoosted { get; set; }
-    public Coroutine SpeedBoostCoroutine { get; set; }
-
-    private void Awake()
-    {
-        originalSpeed = moveSpeed;
-    }
-
-    public void ApplySpeedBoost(float boostAmount, float duration)
-    {
-        SpeedBoostCoroutine = StartCoroutine(SpeedBoost(boostAmount, duration));
-    }
-
-    private IEnumerator SpeedBoost(float boostAmount, float duration)
-    {
-        IsSpeedBoosted = true;
-        moveSpeed += boostAmount;
-        yield return new WaitForSeconds(duration);
-        moveSpeed = originalSpeed;
-        IsSpeedBoosted = false;
-        SpeedBoostCoroutine = null;
-    }
-    
     public void UpdateAmmoText(int ammo, int playerIdentifier)
     {
         if (playerIdentifier == 1 && ammoText1 != null)

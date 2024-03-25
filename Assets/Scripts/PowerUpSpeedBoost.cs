@@ -31,13 +31,35 @@ public class PowerUpSpeedBoost : MonoBehaviour
             if ((potentialPicker.CompareTag("Player1") && Input.GetKeyDown(KeyCode.S)) || 
                 (potentialPicker.CompareTag("Player2") && Input.GetKeyDown(KeyCode.DownArrow)))
             {
-                PlayerMovement playerMovement = potentialPicker.GetComponent<PlayerMovement>();
-                if (playerMovement != null && !playerMovement.IsSpeedBoosted)
-                {
-                    playerMovement.ApplySpeedBoost(speedBoostAmount, boostDuration);
-                }
-                Destroy(gameObject);
+                StartCoroutine(ApplySpeedBoost(speedBoostAmount, boostDuration, potentialPicker));
             }
         }
+    }
+
+    IEnumerator ApplySpeedBoost(float amount, float duration, GameObject player)
+    {
+        PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
+        if (playerMovement != null)
+        {
+
+            playerMovement.moveSpeed += amount;
+            
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.enabled = false;
+            }
+
+            Collider2D collider = GetComponent<Collider2D>();
+            if (collider != null)
+            {
+                collider.enabled = false;
+            }
+
+            yield return new WaitForSeconds(duration);
+            
+            playerMovement.moveSpeed -= amount;    
+        }
+        Destroy(gameObject);
     }
 }
