@@ -35,9 +35,7 @@ public class ItemSpawner : MonoBehaviour
 
         var shuffledAvailableSpawnPoints = spawnPoints
             .Select((point, index) => new { Point = point, Index = index })
-            .Where(sp => !isSpawnPointOccupied[sp.Index] &&
-                         Vector3.Distance(sp.Point.transform.position, player1.transform.position) > minimumDistance &&
-                         Vector3.Distance(sp.Point.transform.position, player2.transform.position) > minimumDistance)
+            .Where(sp => !isSpawnPointOccupied[sp.Index] && IsSpawnPointValid(sp.Point.transform.position))
             .OrderBy(_ => Random.value)
             .ToList();
 
@@ -61,12 +59,13 @@ public class ItemSpawner : MonoBehaviour
         
     }
 }
-
+    
     private bool IsSpawnPointValid(Vector3 spawnPointPosition)
     {   
         return Vector3.Distance(spawnPointPosition, player1.transform.position) > minimumDistance &&
                Vector3.Distance(spawnPointPosition, player2.transform.position) > minimumDistance; 
     }
+    
   
     private IEnumerator ReleaseSpawnPoint(int index, float delay)
     {
