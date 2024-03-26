@@ -27,12 +27,17 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
+        UpdateDistanceTravelled();
+    }
+
+    void UpdateDistanceTravelled()
+    {
         distanceTravelled += Vector3.Distance(transform.position, lastPosition);
         lastPosition = transform.position;
 
         if (distanceTravelled >= range)
         {
-            Destroy(gameObject);
+            DestroySelf();
         }
     }
 
@@ -42,15 +47,20 @@ public class Bullet : MonoBehaviour
         if (health != null)
         {
             health.TakeDamage(damage);
-            Destroy(gameObject);
+            DestroySelf();
         }
         else if (hitInfo.gameObject.CompareTag("Platform"))
         {
-            Destroy(gameObject);
+            DestroySelf();
         }
     }
 
     void OnBecameInvisible()
+    {
+        DestroySelf();
+    }
+
+    void DestroySelf()
     {
         Destroy(gameObject);
     }

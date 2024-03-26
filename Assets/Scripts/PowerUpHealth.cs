@@ -25,18 +25,28 @@ public class PowerUpHealth : MonoBehaviour
 
     void Update()
     {
+        CheckForPowerUpActivation();
+    }
+
+    void CheckForPowerUpActivation()
+    {
         if (potentialPicker != null)
         {
             if ((potentialPicker.CompareTag("Player1") && Input.GetKeyDown(KeyCode.S)) || 
                 (potentialPicker.CompareTag("Player2") && Input.GetKeyDown(KeyCode.DownArrow)))
             {
-                Health health = potentialPicker.GetComponent<Health>();
-                if (health != null)
-                {
-                    health.AddHealth(healthBoost);
-                    Destroy(gameObject);
-                }
+                ActivatePowerUp();
             }
         }
-}
+    }
+
+    void ActivatePowerUp()
+    {
+        Health health = potentialPicker.GetComponent<Health>();
+        if (health != null)
+        {
+            health.AddHealth(healthBoost);
+            Destroy(gameObject);
+        }
+    }
 }

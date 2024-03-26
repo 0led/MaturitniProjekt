@@ -6,105 +6,59 @@ public class Weapon : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public Transform firePoint;
-    private string fireButton1;
-    private string fireButton2;
     public WeaponConfig weaponConfig;
     public bool isStartingWeapon = false;
+    public int currentAmmo;
     private int playerIdentifier;
     private PlayerMovement playerMovement;
 
-    public int currentAmmo;
-
     void Start()
     {
-        currentAmmo = weaponConfig.ammo;
-
-        playerMovement = GetComponentInParent<PlayerMovement>();
-
-        if (isStartingWeapon)
-        {
-        Transform weaponHolder = transform.parent;
-
-        if (weaponHolder.parent.CompareTag("Player1"))
-        {
-            SetPlayerIdentifier(1);
-            firePoint = weaponHolder.parent.Find("FirePoint1");
-        }
-        else if (weaponHolder.parent.CompareTag("Player2"))
-        {
-            SetPlayerIdentifier(2);
-            firePoint = weaponHolder.parent.Find("FirePoint2");
-        }
-    }
-
-    UpdateAmmoText();
-
-    }
-
-    public void SetAmmo(int ammo)
-    {
-        currentAmmo = ammo;
+        InitializeWeapon();
         UpdateAmmoText();
-    }
-       
-    public void SetPlayerIdentifier(int identifier)
-    {
-        playerIdentifier = identifier;
-    }
-
-    public void SetWeaponConfig(WeaponConfig newConfig)
-    {
-        weaponConfig = newConfig;
-    }
-
-    public void SetFirePoint(Transform newFirePoint)
-    {
-        if (newFirePoint != null)
-    {
-        firePoint = newFirePoint;
-    }
     }
 
     void Update()
     {
-        if (!GameStarter.GameHasStarted)
-        return;
+        HandleFiring();
+    }
 
+    void InitializeWeapon()
+    {
+        currentAmmo = weaponConfig.ammo;
+        playerMovement = GetComponentInParent<PlayerMovement>();
+
+        if (isStartingWeapon)
         {
+            Transform weaponHolder = transform.parent;
+            SetPlayerIdentifierBasedOnParentTag(weaponHolder.parent);
+        }
+    }
+
+    void HandleFiring()
+    {
+        if (!GameStarter.GameHasStarted)
+            return;
+
         if ((playerIdentifier == 1 && Input.GetKeyDown(KeyCode.Space)) || 
             (playerIdentifier == 2 && Input.GetKeyDown(KeyCode.Return)))
         {
-            Shoot(weaponConfig);
+            Shoot();
         }
     }
-    }
-      
-    void Shoot(WeaponConfig weaponConfig)
+
+    void SetPlayerIdentifierBasedOnParentTag(Transform parent)
     {
-        if (currentAmmo <= 0)
+        if (parent.CompareTag("Player1"))
         {
-            return;
+            SetPlayerIdentifier(1);
+            firePoint = parent.Find("FirePoint1");
         }
-
-        currentAmmo--;
-        UpdateAmmoText();
-
-        GameObject bulletObject = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        Bullet bulletScript = bulletObject.GetComponent<Bullet>();
-    
-        if (bulletScript != null)
+        else if (parent.CompareTag("Player2"))
         {
-            bulletScript.Initialize(weaponConfig);
-    
-            Collider2D playerCollider = transform.parent.parent.GetComponent<Collider2D>();
-            Collider2D bulletCollider = bulletObject.GetComponent<Collider2D>();
-        
-        if (playerCollider != null && bulletCollider != null)
-        {
-            Physics2D.IgnoreCollision(playerCollider, bulletCollider);
+            SetPlayerIdentifier(2);
+            firePoint = parent.Find("FirePoint2");
         }
-        }
-    
     }
 
     public void UpdateAmmoText()
@@ -112,6 +66,60 @@ public class Weapon : MonoBehaviour
         if (playerMovement != null)
         {
             playerMovement.UpdateAmmoText(currentAmmo, playerIdentifier);
+        }
+    }
+
+    public void SetAmmo(int ammo)
+    {
+        currentAmmo = ammo;
+        UpdateAmmoText();
+    }
+
+    public void SetWeaponConfig(WeaponConfig newConfig)
+    {
+        weaponConfig = newConfig;
+    }
+
+    public void SetPlayerIdentifier(int identifier)
+    {
+        playerIdentifier = identifier;
+    }
+
+    public void SetFirePoint(Transform newFirePoint)
+    {
+        firePoint = newFirePoint ? newFirePoint : firePoint;
+    }
+
+    void Shoot()
+    {
+        if (currentAmmo <= 0)
+            return;
+
+        currentAmmo--;
+        UpdateAmmoText();
+        CreateBullet();
+    }
+
+    void CreateBullet()
+    {
+        GameObject bulletObject = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Bullet bulletScript = bulletObject.GetComponent<Bullet>();
+    
+        if (bulletScript != null)
+        {
+            bulletScript.Initialize(weaponConfig);
+            IgnoreCollisionWithPlayer(bulletObject);
+        }
+    }
+
+    void IgnoreCollisionWithPlayer(GameObject bulletObject)
+    {
+        Collider2D playerCollider = transform.parent.parent.GetComponent<Collider2D>();
+        Collider2D bulletCollider = bulletObject.GetComponent<Collider2D>();
+
+        if (playerCollider != null && bulletCollider != null)
+        {
+            Physics2D.IgnoreCollision(playerCollider, bulletCollider);
         }
     }
 }

@@ -19,7 +19,29 @@ public class Health : MonoBehaviour
     void Start()
     {
         health = maxHealth;
+        SelectUIElementsBasedOnTag();
+    }
 
+    void Update()
+    {
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
+        
+        lerpSpeed = 3f * Time.deltaTime;
+        
+        HealthBarFiller();
+        ColorChanger();
+
+        if (selectedHealthText != null)
+        {
+            selectedHealthText.text = health.ToString("0");
+        }
+    }
+
+    void SelectUIElementsBasedOnTag()
+    {
         if (gameObject.tag == "Player1")
         {
             selectedHealthBar = healthBar1;
@@ -29,20 +51,6 @@ public class Health : MonoBehaviour
         {
             selectedHealthBar = healthBar2;
             selectedHealthText = healthText2;
-        }
-    }
-
-    void Update()
-    {
-        if (health > maxHealth) health = maxHealth;
-        lerpSpeed = 3f * Time.deltaTime;
-        
-        HealthBarFiller();
-        ColorChanger();
-
-        if (selectedHealthText != null)
-        {
-            selectedHealthText.text = health.ToString("0");
         }
     }
 
@@ -58,8 +66,13 @@ public class Health : MonoBehaviour
         {
             health -= damage;
             health = Mathf.Clamp(health, 0, maxHealth);
-        
-            if (health <= 0)
+            CheckForDeath();
+        }
+    }
+
+    void CheckForDeath()
+    {
+        if (health <= 0)
             {
                 if(gameObject.tag == "Player1")
                 {
@@ -70,8 +83,6 @@ public class Health : MonoBehaviour
                     SceneManager.LoadScene("Player1Win");
                 }
             }
-        
-        }
     }
 
     void HealthBarFiller()

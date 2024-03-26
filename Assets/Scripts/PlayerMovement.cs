@@ -7,9 +7,9 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 12f;
     public float jumpForce = 17f;
-    public Rigidbody2D _rigidbody;
     private float lastJumpTime = 0.0f;
     private float jumpCooldown = 0.5f;
+    public Rigidbody2D _rigidbody;
     public Transform FirePoint1;
     public Transform FirePoint2; 
     private bool facingRightP1 = true;
@@ -19,6 +19,29 @@ public class PlayerMovement : MonoBehaviour
     public Text ammoText1;
     public Text ammoText2;
    
+    private void Start()
+    {
+        _rigidbody = GetComponent<Rigidbody2D>();
+    }
+    
+    void Update()
+    {
+        if (!GameStarter.GameHasStarted)
+        return;
+
+        if (gameObject.tag == "Player1")
+        {
+            HandlePlayer1Movement();
+            AdjustPlayer1ScaleAndRotation();
+        }
+
+        if (gameObject.tag == "Player2")
+        {
+            HandlePlayer2Movement();
+            AdjustPlayer2ScaleAndRotation();
+        }
+    }
+
     public void UpdateAmmoText(int ammo, int playerIdentifier)
     {
         if (playerIdentifier == 1 && ammoText1 != null)
@@ -39,29 +62,6 @@ public class PlayerMovement : MonoBehaviour
     public bool GetFacingRightP2()
     {
         return facingRightP2;
-    }
-
-    private void Start()
-    {
-        _rigidbody = GetComponent<Rigidbody2D>();
-    }
-
-    void Update()
-    {
-        if (!GameStarter.GameHasStarted)
-        return;
-
-        if (gameObject.tag == "Player1")
-        {
-            HandlePlayer1Movement();
-            AdjustPlayer1ScaleAndRotation();
-        }
-
-        if (gameObject.tag == "Player2")
-        {
-            HandlePlayer2Movement();
-            AdjustPlayer2ScaleAndRotation();
-        }
     }
 
     void HandlePlayer1Movement()

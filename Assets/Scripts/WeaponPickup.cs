@@ -23,7 +23,12 @@ public class WeaponPickup : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
+    {
+        CheckInputAndPickupWeapon();
+    }
+
+    private void CheckInputAndPickupWeapon()
     {
         if (potentialPicker != null)
         {
@@ -35,21 +40,45 @@ public class WeaponPickup : MonoBehaviour
         }
     }
 
-    public void PickupWeapon()
+    private void PickupWeapon()
     {
-        if (potentialPicker == null) return;
-
-        PlayerMovement playerMovement = potentialPicker.GetComponent<PlayerMovement>();
-        Transform firePoint = potentialPicker.CompareTag("Player1") ? playerMovement.FirePoint1 : playerMovement.FirePoint2;
-        WeaponConfig weaponConfigToUse = weaponPrefab.GetComponent<Weapon>().weaponConfig;
-        GameObject newWeapon = potentialPicker.GetComponent<WeaponEquip>().EquipWeapon(weaponPrefab, firePoint, weaponConfigToUse);
-        Weapon weaponScript = newWeapon.GetComponent<Weapon>();
-
-        if (weaponScript != null)
+        if (potentialPicker == null)
         {
-            weaponScript.SetAmmo(weaponConfigToUse.ammo);
+        return;
         }
+
+        AssignWeaponToPicker();
+    }
+
+    private void AssignWeaponToPicker()
+    {
+        PlayerMovement playerMovement = potentialPicker.GetComponent<PlayerMovement>();
+        Transform firePoint = DetermineFirePoint(playerMovement);
+        GameObject newWeapon = EquipWeapon(firePoint);
+        SetWeaponAmmo(newWeapon);
 
         Destroy(gameObject);
     }
+
+    private Transform DetermineFirePoint(PlayerMovement playerMovement)
+    {
+        return potentialPicker.CompareTag("Player1") ? playerMovement.FirePoint1 : playerMovement.FirePoint2;
+    }
+
+    private GameObject EquipWeapon(Transform firePoint)
+    {
+        WeaponConfig weaponConfigToUse = weaponPrefab.GetComponent<Weapon>().weaponConfig;
+        return potentialPicker.GetComponent<WeaponEquip>().EquipWeapon(weaponPrefab, firePoint, weaponConfigToUse);
+    }
+
+    private void SetWeaponAmmo(GameObject newWeapon)
+    {
+        Weapon weaponScript = newWeapon.GetComponent<Weapon>();
+        if (weaponScript != null)
+        {
+            WeaponConfig weaponConfigToUse = weaponPrefab.GetComponent<Weapon>().weaponConfig;
+            weaponScript.SetAmmo(weaponConfigToUse.ammo);
+        }
+    }
+
 }

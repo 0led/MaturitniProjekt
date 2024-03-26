@@ -11,11 +11,8 @@ public class GameStarter : MonoBehaviour
     void Start()
     {
         Time.timeScale = 0;
-        
         StartCoroutine(StartCountdown());
-        
         GameHasStarted = false;
-
     }
 
     IEnumerator StartCountdown()
@@ -28,9 +25,13 @@ public class GameStarter : MonoBehaviour
             countdown--;
         }
 
+        EndCountdown();
+    }
+
+    void EndCountdown()
+    {
         Time.timeScale = 1;
         countdownText.gameObject.SetActive(false);
-
         GameHasStarted = true;
     }
 

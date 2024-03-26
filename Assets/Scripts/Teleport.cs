@@ -9,6 +9,11 @@ public class Teleport : MonoBehaviour
 
     void Update()
     {
+        CheckAndTeleport();
+    }
+
+    void CheckAndTeleport()
+    {
         if (transform.position.x > rightBoundary)
         {
             transform.position = new Vector2(leftBoundary, transform.position.y);
@@ -17,5 +22,5 @@ public class Teleport : MonoBehaviour
         {
             transform.position = new Vector2(rightBoundary, transform.position.y);
         }
-    }
+}
 }

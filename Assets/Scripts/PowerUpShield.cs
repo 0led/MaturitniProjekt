@@ -25,6 +25,11 @@ public class PowerUpShield : MonoBehaviour
 
     private void Update()
     {
+        CheckForPowerUpActivation();
+    }
+
+    private void CheckForPowerUpActivation()
+    {
         if (potentialPicker != null)
         {
             if ((potentialPicker.CompareTag("Player1") && Input.GetKeyDown(KeyCode.S)) || 
@@ -41,18 +46,7 @@ public class PowerUpShield : MonoBehaviour
         if (playerHealth != null)
         {
             playerHealth.IsImmune = true;
-
-            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-            if (spriteRenderer != null)
-            {
-                spriteRenderer.enabled = false;
-            }
-            
-            Collider2D collider = GetComponent<Collider2D>();
-            if (collider != null)
-            {
-                collider.enabled = false;
-            }
+            HidePowerUp();
 
             yield return new WaitForSeconds(immunityDuration);
 
@@ -60,4 +54,20 @@ public class PowerUpShield : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void HidePowerUp()
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.enabled = false;
+        }
+
+        Collider2D collider = GetComponent<Collider2D>();
+        if (collider != null)
+        {
+            collider.enabled = false;
+        }
+    }
+
 }
