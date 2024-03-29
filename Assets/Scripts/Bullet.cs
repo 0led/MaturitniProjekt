@@ -5,8 +5,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public Rigidbody2D rb;
-    private float distanceTravelled = 0f;
     private Vector3 lastPosition;
+    private float distanceTravelled = 0f;
     private float damage;
     private float speed;
     private float range;
@@ -37,7 +37,7 @@ public class Bullet : MonoBehaviour
 
         if (distanceTravelled >= range)
         {
-            DestroySelf();
+            Destroy(gameObject);
         }
     }
 
@@ -47,22 +47,16 @@ public class Bullet : MonoBehaviour
         if (health != null)
         {
             health.TakeDamage(damage);
-            DestroySelf();
+            Destroy(gameObject);
         }
         else if (hitInfo.gameObject.CompareTag("Platform"))
         {
-            DestroySelf();
+            Destroy(gameObject);
         }
     }
 
     void OnBecameInvisible()
     {
-        DestroySelf();
-    }
-
-    void DestroySelf()
-    {
         Destroy(gameObject);
-    }
-    
+    }  
 }

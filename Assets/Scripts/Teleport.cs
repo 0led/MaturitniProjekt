@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Teleport : MonoBehaviour
 {
-    public float leftBoundary = -12f;
-    public float rightBoundary = 12f;
+    public float leftBoundary = -20f;
+    public float rightBoundary = 20f;
 
     void Update()
     {
@@ -22,5 +22,5 @@ public class Teleport : MonoBehaviour
         {
             transform.position = new Vector2(rightBoundary, transform.position.y);
         }
-}
+    }
 }

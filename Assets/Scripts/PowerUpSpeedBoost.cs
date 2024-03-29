@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PowerUpSpeedBoost : MonoBehaviour
 {
-    public float speedBoostAmount = 3.0f;
-    public float boostDuration = 5.0f;
     private GameObject potentialPicker;
+    public float boostDuration = 5f;
+    public float speedBoostAmount = 3f;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -33,30 +33,30 @@ public class PowerUpSpeedBoost : MonoBehaviour
     {
         if (potentialPicker != null)
         {
-            if ((potentialPicker.CompareTag("Player1") && Input.GetKeyDown(KeyCode.S)) || 
-                (potentialPicker.CompareTag("Player2") && Input.GetKeyDown(KeyCode.DownArrow)))
+            PlayerMovement playerMovement = potentialPicker.GetComponent<PlayerMovement>();
+            if (playerMovement != null && !playerMovement.isPowerUpActive)
             {
-                ActivatePowerUp();
+                if ((potentialPicker.CompareTag("Player1") && Input.GetKeyDown(KeyCode.S)) || 
+                    (potentialPicker.CompareTag("Player2") && Input.GetKeyDown(KeyCode.DownArrow)))
+                {
+                    StartCoroutine(ApplySpeedBoost(speedBoostAmount, boostDuration, playerMovement));
+                }
             }
         }
     }
 
-    void ActivatePowerUp()
+    IEnumerator ApplySpeedBoost(float amount, float duration, PlayerMovement playerMovement)
     {
-        StartCoroutine(ApplySpeedBoost(speedBoostAmount, boostDuration, potentialPicker));
-    }
-
-    IEnumerator ApplySpeedBoost(float amount, float duration, GameObject player)
-    {
-        PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
         if (playerMovement != null)
         {
+            playerMovement.isPowerUpActive = true;
             playerMovement.moveSpeed += amount;
             HidePowerUp();
 
             yield return new WaitForSeconds(duration);
 
             playerMovement.moveSpeed -= amount;
+            playerMovement.isPowerUpActive = false;
         }
         Destroy(gameObject);
     }
@@ -75,5 +75,4 @@ public class PowerUpSpeedBoost : MonoBehaviour
             collider.enabled = false;
         }
     }
-
 }

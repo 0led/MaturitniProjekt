@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PowerUpShield : MonoBehaviour
 {
-    public float immunityDuration = 5f;
     private GameObject potentialPicker;
+    public float immunityDuration = 5f;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -32,25 +32,30 @@ public class PowerUpShield : MonoBehaviour
     {
         if (potentialPicker != null)
         {
-            if ((potentialPicker.CompareTag("Player1") && Input.GetKeyDown(KeyCode.S)) || 
-                (potentialPicker.CompareTag("Player2") && Input.GetKeyDown(KeyCode.DownArrow)))
+            PlayerMovement playerMovement = potentialPicker.GetComponent<PlayerMovement>();
+            if (playerMovement != null && !playerMovement.isPowerUpActive)
             {
-                StartCoroutine(ApplyImmunity(potentialPicker.GetComponent<Health>()));
-                potentialPicker = null;
+                if ((potentialPicker.CompareTag("Player1") && Input.GetKeyDown(KeyCode.S)) || 
+                    (potentialPicker.CompareTag("Player2") && Input.GetKeyDown(KeyCode.DownArrow)))
+                {
+                    StartCoroutine(ApplyImmunity(potentialPicker.GetComponent<Health>(), playerMovement));
+                }
             }
         }
     }
 
-    private IEnumerator ApplyImmunity(Health playerHealth)
+    private IEnumerator ApplyImmunity(Health playerHealth, PlayerMovement playerMovement)
     {
         if (playerHealth != null)
         {
+            playerMovement.isPowerUpActive = true;
             playerHealth.IsImmune = true;
             HidePowerUp();
 
             yield return new WaitForSeconds(immunityDuration);
 
             playerHealth.IsImmune = false;
+            playerMovement.isPowerUpActive = false;
             Destroy(gameObject);
         }
     }
