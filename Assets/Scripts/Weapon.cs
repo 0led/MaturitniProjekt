@@ -35,18 +35,6 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    void HandleFiring()
-    {
-        if (!GameStarter.GameHasStarted)
-            return;
-
-        if ((playerIdentifier == 1 && Input.GetKeyDown(KeyCode.Space)) || 
-            (playerIdentifier == 2 && Input.GetKeyDown(KeyCode.Return)))
-        {
-            Shoot();
-        }
-    }
-
     void SetPlayerIdentifierTag(Transform parent)
     {
         if (parent.CompareTag("Player1"))
@@ -61,11 +49,15 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    public void UpdateAmmoText()
+    void HandleFiring()
     {
-        if (playerMovement != null)
+        if (!GameStarter.GameHasStarted)
+            return;
+
+        if ((playerIdentifier == 1 && Input.GetKeyDown(KeyCode.Space)) || 
+            (playerIdentifier == 2 && Input.GetKeyDown(KeyCode.Return)))
         {
-            playerMovement.UpdateAmmoText(currentAmmo, playerIdentifier);
+            Shoot();
         }
     }
 
@@ -73,6 +65,14 @@ public class Weapon : MonoBehaviour
     {
         currentAmmo = ammo;
         UpdateAmmoText();
+    }
+
+    public void UpdateAmmoText()
+    {
+        if (playerMovement != null)
+        {
+            playerMovement.UpdateAmmoText(currentAmmo, playerIdentifier);
+        }
     }
 
     public void SetWeaponConfig(WeaponConfig newConfig)

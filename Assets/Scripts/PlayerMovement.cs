@@ -33,13 +33,13 @@ public class PlayerMovement : MonoBehaviour
         if (gameObject.tag == "Player1")
         {
             HandlePlayer1Movement();
-            AdjustPlayer1ScaleAndRotation();
+            AdjustPlayerScaleAndRotation(facingRightP1, WeaponHolder1, FirePoint1);
         }
 
         if (gameObject.tag == "Player2")
         {
             HandlePlayer2Movement();
-            AdjustPlayer2ScaleAndRotation();
+            AdjustPlayerScaleAndRotation(facingRightP2, WeaponHolder2, FirePoint2);
         }
     }
 
@@ -52,6 +52,24 @@ public class PlayerMovement : MonoBehaviour
         else if (playerIdentifier == 2 && ammoText2 != null)
         {
             ammoText2.text = ammo.ToString();
+        }
+    }
+
+    void AdjustPlayerScaleAndRotation(bool facingRight, Transform weaponHolder, Transform firePoint)
+    {
+        if (!facingRight)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+            weaponHolder.localScale = new Vector3(-1, 1, 1);
+            weaponHolder.eulerAngles = new Vector3(0, 180, 0);
+            firePoint.eulerAngles = new Vector3(0, 180, 0);
+        }
+        else
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+            weaponHolder.localScale = new Vector3(1, 1, 1);
+            weaponHolder.eulerAngles = Vector3.zero;
+            firePoint.eulerAngles = Vector3.zero;
         }
     }
 
@@ -74,24 +92,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void AdjustPlayer1ScaleAndRotation()
-    {
-        if (!facingRightP1)
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-            WeaponHolder1.localScale = new Vector3(-1, 1, 1);
-            WeaponHolder1.eulerAngles = new Vector3(0, 180, 0);
-            FirePoint1.eulerAngles = new Vector3(0, 180, 0);
-        }
-        else
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-            WeaponHolder1.localScale = new Vector3(1, 1, 1);
-            WeaponHolder1.eulerAngles = Vector3.zero;
-            FirePoint1.eulerAngles = Vector3.zero;
-        }
-    }
-
     void HandlePlayer2Movement()
     {
         if (Input.GetKey(KeyCode.LeftArrow))
@@ -110,22 +110,4 @@ public class PlayerMovement : MonoBehaviour
             lastJumpTime = Time.time;
         }
     }
-
-    void AdjustPlayer2ScaleAndRotation()
-    {
-        if (!facingRightP2)
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-            WeaponHolder2.localScale = new Vector3(-1, 1, 1);
-            WeaponHolder2.eulerAngles = new Vector3(0, 180, 0);
-            FirePoint2.eulerAngles = new Vector3(0, 180, 0);
-        }
-        else
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-            WeaponHolder2.localScale = new Vector3(1, 1, 1);
-            WeaponHolder2.eulerAngles = Vector3.zero;
-            FirePoint2.eulerAngles = Vector3.zero;
-        }
-}
 }
