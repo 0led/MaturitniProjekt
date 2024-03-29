@@ -25,10 +25,10 @@ public class WeaponPickup : MonoBehaviour
 
     private void Update()
     {
-        CheckInputAndPickupWeapon();
+        CheckInput();
     }
 
-    private void CheckInputAndPickupWeapon()
+    private void CheckInput()
     {
         if (potentialPicker != null)
         {
