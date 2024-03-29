@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class WeaponPickup : MonoBehaviour
 { 
-    public GameObject weaponPrefab;
     private GameObject potentialPicker;
+    public GameObject weaponPrefab;
 
     void OnTriggerEnter2D(Collider2D collision)
     {

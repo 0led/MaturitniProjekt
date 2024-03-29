@@ -5,20 +5,21 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 12f;
-    public float jumpForce = 17f;
-    private float lastJumpTime = 0.0f;
-    private float jumpCooldown = 0.5f;
     public Rigidbody2D _rigidbody;
     public Transform FirePoint1;
     public Transform FirePoint2; 
-    private bool facingRightP1 = true;
-    private bool facingRightP2 = false;
     public Transform WeaponHolder1;
     public Transform WeaponHolder2;
     public Text ammoText1;
     public Text ammoText2;
-   
+    public float moveSpeed = 12f;
+    public float jumpForce = 17f;
+    private float lastJumpTime = 0f;
+    private float jumpCooldown = 0.5f;
+    private bool facingRightP1 = true;
+    private bool facingRightP2 = false;
+    public bool isPowerUpActive = false;
+
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -52,16 +53,6 @@ public class PlayerMovement : MonoBehaviour
         {
             ammoText2.text = ammo.ToString();
         }
-    }
-
-    public bool GetFacingRightP1()
-    {
-        return facingRightP1;
-    }
-
-    public bool GetFacingRightP2()
-    {
-        return facingRightP2;
     }
 
     void HandlePlayer1Movement()

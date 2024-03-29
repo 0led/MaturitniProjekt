@@ -7,10 +7,10 @@ public class Weapon : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform firePoint;
     public WeaponConfig weaponConfig;
-    public bool isStartingWeapon = false;
-    public int currentAmmo;
-    private int playerIdentifier;
     private PlayerMovement playerMovement;
+    public bool isStartingWeapon = false;
+    private int playerIdentifier;
+    public int currentAmmo;
 
     void Start()
     {
@@ -31,7 +31,7 @@ public class Weapon : MonoBehaviour
         if (isStartingWeapon)
         {
             Transform weaponHolder = transform.parent;
-            SetPlayerIdentifierBasedOnParentTag(weaponHolder.parent);
+            SetPlayerIdentifierTag(weaponHolder.parent);
         }
     }
 
@@ -47,7 +47,7 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    void SetPlayerIdentifierBasedOnParentTag(Transform parent)
+    void SetPlayerIdentifierTag(Transform parent)
     {
         if (parent.CompareTag("Player1"))
         {

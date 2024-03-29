@@ -12,9 +12,9 @@ public class Health : MonoBehaviour
     public Text healthText2;
     private Image selectedHealthBar;
     private Text selectedHealthText;
-    float health, maxHealth = 100;
-    float lerpSpeed;
-    public bool IsImmune { get; set; }
+    public float health, maxHealth = 100;
+    private float lerpSpeed;
+    public bool IsImmune = false;
 
     void Start()
     {

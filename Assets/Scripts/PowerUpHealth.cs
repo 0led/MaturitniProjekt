@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PowerUpHealth : MonoBehaviour
 {
-    public float healthBoost = 100;
     private GameObject potentialPicker;
+    public float healthBoost = 100;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -42,10 +42,10 @@ public class PowerUpHealth : MonoBehaviour
 
     void ActivatePowerUp()
     {
-        Health health = potentialPicker.GetComponent<Health>();
-        if (health != null)
+        Health healthComponent = potentialPicker.GetComponent<Health>();
+        if (healthComponent != null && healthComponent.health < 100)
         {
-            health.AddHealth(healthBoost);
+            healthComponent.AddHealth(healthBoost);
             Destroy(gameObject);
         }
     }

@@ -5,18 +5,17 @@ using System.Linq;
 
 public class ItemSpawner : MonoBehaviour
 {
-    public GameObject ARPrefab;
-    public GameObject SMGPrefab;
     private GameObject player1;
     private GameObject player2;
-    public float minimumDistance = 7f;
-    public float spawnDelay = 4f;
-    public float destroyDelay = 7f;
     public GameObject[] spawnPoints;
+    private GameObject[] spawnedObjects;
+    public GameObject[] weaponsPrefabs;
     public GameObject[] powerUpPrefabs;
     private bool[] isSpawnPointOccupied;
     private bool spawnWeaponNext = true;
-    private GameObject[] spawnedObjects;
+    public float minimumDistance = 7f;
+    public float spawnDelay = 4f;
+    public float destroyDelay = 7f;
 
     private void Start()
     {
@@ -56,7 +55,6 @@ public class ItemSpawner : MonoBehaviour
         {
             continue;
         }
-        
     }
 }
     
@@ -66,7 +64,6 @@ public class ItemSpawner : MonoBehaviour
                Vector3.Distance(spawnPointPosition, player2.transform.position) > minimumDistance; 
     }
     
-  
     private IEnumerator ReleaseSpawnPoint(int index, float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -107,7 +104,12 @@ public class ItemSpawner : MonoBehaviour
 
     private GameObject ChooseWeapon()
     {
-        return Random.Range(0, 2) == 0 ? ARPrefab : SMGPrefab;
+        if (weaponsPrefabs.Length == 0)
+        {
+            return null;
+        }
+        int weaponIndex = Random.Range(0, weaponsPrefabs.Length);
+        return weaponsPrefabs[weaponIndex];
     }
 
     private GameObject ChoosePowerUp()
